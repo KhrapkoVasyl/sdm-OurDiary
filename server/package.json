@@ -1,0 +1,11 @@
+{
+  "name": "sdm-ourdiary-server",
+  "version": "1.0.0",
+  "description": "Server side of our diary application",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Vasyl Khrapko (khrapko2002@gmail.com), Bogdan Zinovij (bogdanolexandrov@gmail.com)",
+  "license": "MIT"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "sdm-ourdiary-client",
+  "version": "1.0.0",
+  "description": "Client side of our diary application",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Artem Matiushenko (artom.matyushenko@gmail.com)",
+  "license": "MIT"
+}
