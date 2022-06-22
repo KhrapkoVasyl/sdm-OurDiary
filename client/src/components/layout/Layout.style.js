@@ -6,7 +6,7 @@ export const Layout = styled.div`
   height: 100%;
 `;
 
-export const LeftSide = styled.div`
+export const Aside = styled.aside`
   flex: 0.25;
   background-color: antiquewhite;
 `;

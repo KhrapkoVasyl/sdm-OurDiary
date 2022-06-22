@@ -5,9 +5,9 @@ import { TasksPage } from 'components/tasks-page';
 const Layout = () => {
   return (
     <S.Layout>
-      <S.LeftSide>
+      <S.Aside>
         <SideNav />
-      </S.LeftSide>
+      </S.Aside>
       <S.Main>
         <TasksPage />
       </S.Main>
