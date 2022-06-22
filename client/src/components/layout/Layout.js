@@ -1,3 +1,4 @@
+import React from 'react';
 import * as S from './Layout.style';
 import { SideNav } from 'components/side-nav';
 import { TasksPage } from 'components/tasks-page';
