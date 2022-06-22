@@ -20,6 +20,8 @@ const GlobalStyles = createGlobalStyle`
     body {
       width: 100%;
       height: calc(100% - 50px);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
       background-color: ${getThemeValue('colorBackgroundSecondary')};
     }
 
