@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "npm test",
-    "lint": "eslint . --fix && prettier --write \"**/*.js\" \"**/*.json\""
+    "lint": "eslint . --fix && prettier --write \"**/*.js\" \"**/*.json\"",
+    "start": "nodemon ./src/server.js"
   },
   "author": "Vasyl Khrapko (khrapko2002@gmail.com), Bogdan Zinovij (bogdanolexandrov@gmail.com)",
   "license": "MIT",
@@ -15,6 +16,7 @@
   },
   "devDependencies": {
     "eslint": "^8.18.0",
+    "nodemon": "^2.0.16",
     "prettier": "^2.7.1"
   }
 }
