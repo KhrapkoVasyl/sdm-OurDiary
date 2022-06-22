@@ -8,7 +8,7 @@ export const Button = styled.button`
   outline: none;
   background-color: ${getThemeValue('colorPrimary')};
   color: ${getThemeValue('colorTextLight')};
-  padding: 6px;
+  padding: 9px;
   padding-right: 30px;
   font-family: inherit;
   display: flex;
@@ -16,6 +16,11 @@ export const Button = styled.button`
   border-radius: 100px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+
+  p {
+    flex: 1;
+  }
 
   &:hover {
     background-color: ${getThemeValue('colorPrimaryLight')};

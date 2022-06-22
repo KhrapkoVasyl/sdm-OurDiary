@@ -8,12 +8,11 @@ export const Layout = styled.div`
 `;
 
 export const Aside = styled.aside`
-  flex: 0.25;
-  background-color: #cfcfcf;
+  flex: 0.2;
 `;
 
 export const Main = styled.main`
-  flex: 0.75;
+  flex: 0.8;
   background-color: #fff;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
