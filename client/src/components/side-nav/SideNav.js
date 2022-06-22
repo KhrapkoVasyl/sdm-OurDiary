@@ -3,7 +3,6 @@ import * as S from './SideNav.style';
 import { FaTasks, FaCalendarTimes } from 'react-icons/fa';
 import { IoMdDoneAll } from 'react-icons/io';
 import { MdOutlineSchedule } from 'react-icons/md';
-// import { TbCalendarTime } from 'react-icons/tb';
 import { SideNavItem } from 'components/side-nav-item';
 import { useMemo } from 'react';
 import { useTheme } from 'styled-components';
