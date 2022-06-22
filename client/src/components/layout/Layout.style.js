@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { getThemeValue } from 'utils/getThemeValue';
 
 export const Layout = styled.div`
   display: flex;
@@ -8,7 +9,7 @@ export const Layout = styled.div`
 
 export const Aside = styled.aside`
   flex: 0.25;
-  background-color: antiquewhite;
+  background-color: #cfcfcf;
 `;
 
 export const Main = styled.main`
