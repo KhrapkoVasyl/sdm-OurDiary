@@ -76,13 +76,20 @@ class FileBasedDB {
   async findTask(tid) {
     return this.#tasks.find(task => task.id === tid);
   }
+
+  async findAllTasks(filterParams = {}) {
+    const paramsArr = Object.keys(filterParams);
+    let tasks = this.#tasks;
+    for (const param of paramsArr) {
+      tasks = tasks.filter(task => task[param] === filterParams[param]);
+    }
+    return tasks;
+  }
 }
 
 (async () => {
   const db = new FileBasedDB();
   await db.connect();
-  const task = await db.findTask(1);
-  console.log(task);
 })();
 
 module.exports = FileBasedDB;
