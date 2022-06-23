@@ -5,6 +5,10 @@ const updateTask = require('../services/updateTask');
 const deleteTask = require('../services/deleteTask');
 const markTaskAsCompleted = require('../services/markTaskAsCompleted');
 const markTaskAsUncompleted = require('../services/markTaskAsUncompleted');
+const getAllCompletedTasks = require('../services/getAllCompletedTasks');
+const getAllUncompletedTasks = require('../services/getAllUncompletedTasks');
+const getAllUserTasks = require('../services/getAllUserTasks');
+const getAllOverdueTasks = require('../services/getAllOverdueTasks');
 
 class TaskController {
   async createTask(req, res) {
