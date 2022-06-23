@@ -1,7 +1,7 @@
+import React from 'react';
 import { TASK_FORM_MODES } from 'constants/popup-modes';
 import { useGlobalActions } from 'features/global/globalSlice';
 import { useTasksActions } from 'features/tasks/tasksSlice';
-import React from 'react';
 import { FaTrashAlt, FaRegEdit } from 'react-icons/fa';
 import * as S from './Task.style';
 

@@ -4,7 +4,7 @@ import { TASK_FORM_MODES } from 'constants/popup-modes';
 
 const initialState = {
   isPopupOpen: false,
-  taskFormMode: TASK_FORM_MODES.EDIT,
+  taskFormMode: TASK_FORM_MODES.CREATE,
   isLoading: false,
 };
 

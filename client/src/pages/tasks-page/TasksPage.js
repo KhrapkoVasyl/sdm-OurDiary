@@ -4,10 +4,11 @@ import { useTheme } from 'styled-components';
 import { RemoveAllButton } from 'components/remove-all-button';
 import { TaskList } from 'components/tasks-list';
 import { useSelector } from 'react-redux';
-import { selectTasks } from 'features/tasks/tasksSlice';
+import { selectTasks, useTasksActions } from 'features/tasks/tasksSlice';
 
 const TasksPage = ({ title, titleIconColor }) => {
   const tasks = useSelector(selectTasks);
+  const { removeAllTasks } = useTasksActions();
   const theme = useTheme();
 
   return (
@@ -17,7 +18,7 @@ const TasksPage = ({ title, titleIconColor }) => {
           <FaTasks />
           All Tasks
         </S.Title>
-        <RemoveAllButton />
+        <RemoveAllButton onClick={() => removeAllTasks()} />
       </S.PageHead>
       <TaskList tasks={tasks} />
       <S.TotalTasks>Total: {tasks.length}</S.TotalTasks>
