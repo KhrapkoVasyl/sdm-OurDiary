@@ -2,10 +2,10 @@
 
 const express = require('express');
 const app = express();
+const authRouter = require('./routers/authRouter');
+const { PREFIX } = require("./config")
 
 app.use(express.json());
-app.use('/', (req, res) => {
-  res.send('Hello from server!');
-});
+app.use(PREFIX + '/auth', authRouter);
 
 module.exports = app;
