@@ -104,6 +104,24 @@ class TaskController {
       });
     }
   }
+
+  async getAllUserTasks(req, res) {
+    try {
+      const userID = req.userID;
+
+      const tasks = await getAllUserTasks(userID);
+
+      res.status(201).json({ 
+        status: 'success', 
+        tasks, 
+      });
+    } catch (err) {
+      res.status(400).json({ 
+        status: 'failed', 
+        message: err.message 
+      });
+    }
+  }
 }
 
 module.exports = new TaskController();
