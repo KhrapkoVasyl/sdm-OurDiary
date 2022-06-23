@@ -7,6 +7,8 @@ const FileBasedDB = require('./fileBasedDB');
 
 describe('File Based Database Testing', () => {
   const dirPath = path.join(__dirname, 'testDB');
+  const fileUsersPath = path.join(dirPath, 'users.json');
+  const fileTasksPath = path.join(dirPath, 'tasks.json');
   const db = new FileBasedDB(dirPath);
 
   beforeEach(async () => {
@@ -14,6 +16,7 @@ describe('File Based Database Testing', () => {
   });
 
   afterEach(async () => {
+    await db.clearDB();
     await fs
       .rm(dirPath, { recursive: true, force: true })
       .catch(err => console.log(err));
@@ -32,39 +35,82 @@ describe('File Based Database Testing', () => {
     });
 
     test('Should create datafile ./test/tasks.json and not throw an error when trying to access this datafile', async () => {
-      const pathToFile = path.join(dirPath, 'tasks.json');
-
-      const testFileAccess = async () => await fs.access(pathToFile);
+      const testFileAccess = async () => await fs.access(fileTasksPath);
 
       expect(testFileAccess).not.toThrow();
     });
 
     test('Should create datafile ./test/users.json and not throw an error when trying to access this datafile', async () => {
-      const pathToFile = path.join(dirPath, 'users.json');
-
-      const testFileAccess = async () => await fs.access(pathToFile);
-      expect(testFileAccess).not.toThrow();
-    });
-
-    test('Should create datafile ./test/users.json and not throw an error when trying to access this datafile', async () => {
-      const pathToFile = path.join(dirPath, 'users.json');
-
-      const testFileAccess = async () => await fs.access(pathToFile);
+      const testFileAccess = async () => await fs.access(fileUsersPath);
       expect(testFileAccess).not.toThrow();
     });
   });
 
-  describe('Testing the .inserUser() method', () => {
-    test('Should create datafile ./test/users.json and not throw an error when trying to access this datafile', async () => {
-      const pathToFile = path.join(dirPath, 'users.json');
+  describe('Testing the .insertUser() method', () => {
+    test('Should create and return a new user and add it to user.json file (the user saved to the file and the user returned must be equal) and id should be added automatically', async () => {
+      const user = {
+        name: 'Leo',
+        password: '123',
+      };
+      const returnedUser = await db.insertUser(user);
 
-      const testFileAccess = async () => await fs.access(pathToFile);
-      expect(testFileAccess).not.toThrow();
+      const dataInUsersFile = await fs.readFile(fileUsersPath);
+      const usersArr = JSON.parse(dataInUsersFile);
+      const userInDB = usersArr[0];
+
+      expect(returnedUser).toEqual(userInDB);
+      expect(returnedUser).toHaveProperty('id');
+      expect(returnedUser.name).toBe('Leo');
+      expect(returnedUser.password).toBe('123');
     });
   });
-  // describe('Testing the .connect() method', () => {});
-  // describe('Testing the .connect() method', () => {});
-  // describe('Testing the .connect() method', () => {});
-  // describe('Testing the .connect() method', () => {});
-  // describe('Testing the .connect() method', () => {});
+
+  describe('Testing the .insertTask() method', () => {
+    test('Should throw an error when we try to create a task with a user id that does not exist', async () => {
+      const task = {
+        userID: 1,
+        title: 'task1',
+        isDone: false,
+      };
+
+      await expect(
+        async () =>
+          await db
+            .insertTask(task)
+            .toThrow('Trying to assign a task to an inexisting user')
+      );
+    });
+
+    test('Should create and return a new task and add it to task.json file (the task saved to the file and the task returned must be equal) and id should be added automatically', async () => {
+      const user = await db.insertUser({ name: 'test', password: '123' }); //preparing user to use for userID in task
+      const task = {
+        userID: user.id,
+        title: 'task',
+        isDone: false,
+      };
+      const returnedTask = await db.insertTask(task);
+
+      const dataInUsersFile = await fs.readFile(fileTasksPath);
+      const taskArr = JSON.parse(dataInUsersFile);
+      const taskInDB = taskArr[0];
+
+      expect(returnedTask).toEqual(taskInDB);
+      expect(returnedTask).toHaveProperty('id');
+      expect(returnedTask.userID).toBe(user.id);
+      expect(returnedTask.title).toBe('task');
+      expect(returnedTask.isDone).toBe(false);
+    });
+  });
+
+  describe('Testing the .findUserById() method', () => {
+    test('Should return a user with an ID that is equal to the specified ID for when specifying the ID of an existing user', async () => {
+      await db.insertUser({ name: 'testName', password: '123' });
+
+      const user = await db.findUserById(0);
+
+      expect(user.id).toBe(0);
+      expect(user.name).toBe('testName');
+      expect(user.password).toBe('123');
+    });
+  });
 });
