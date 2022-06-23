@@ -105,11 +105,65 @@ class TaskController {
     }
   }
 
+  async getAllCompletedTasks(req, res) {
+    try {
+      const userID = req.userID;
+
+      const tasks = await getAllCompletedTasks(userID);
+
+      res.status(201).json({ 
+        status: 'success', 
+        tasks, 
+      });
+    } catch (err) {
+      res.status(400).json({ 
+        status: 'failed', 
+        message: err.message 
+      });
+    }
+  }
+
+  async getAllOverdueTasks(req, res) {
+    try {
+      const userID = req.userID;
+
+      const tasks = await getAllOverdueTasks(userID);
+
+      res.status(201).json({ 
+        status: 'success', 
+        tasks, 
+      });
+    } catch (err) {
+      res.status(400).json({ 
+        status: 'failed', 
+        message: err.message 
+      });
+    }
+  }
+
   async getAllUserTasks(req, res) {
     try {
       const userID = req.userID;
 
       const tasks = await getAllUserTasks(userID);
+
+      res.status(201).json({ 
+        status: 'success', 
+        tasks, 
+      });
+    } catch (err) {
+      res.status(400).json({ 
+        status: 'failed', 
+        message: err.message 
+      });
+    }
+  }
+
+  async getAllUncompletedTasks(req, res) {
+    try {
+      const userID = req.userID;
+
+      const tasks = await getAllUncompletedTasks(userID);
 
       res.status(201).json({ 
         status: 'success', 
