@@ -106,7 +106,6 @@ class FileBasedDB {
       throw new Error('Trying to assign a record to an inexisting user');
     const taskID = this.#currentTaskID++;
     const newTask = new Task({ id: taskID, ...task });
-    console.log(newTask);
     this.#tasks.push(newTask);
     await this.#saveFile(this.#pathToTasksFile, this.#tasks);
     return newTask;
