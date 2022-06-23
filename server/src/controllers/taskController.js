@@ -24,6 +24,27 @@ class TaskController {
       });
     }
   }
+
+  async updateTask(req, res) {
+    try {
+      const userID = req.userID;
+      const taskID = req.body.id;
+
+      delete req.body.id;
+
+      const task = await updateTask(userID, taskID, req.body);
+
+      res.status(200).json({ 
+        status: 'success', 
+        message: 'Task was updated!', 
+      });
+    } catch (err) {
+      res.status(400).json({ 
+        status: 'failed', 
+        message: err.message 
+      });
+    }
+  }
 }
 
 module.exports = new TaskController();
