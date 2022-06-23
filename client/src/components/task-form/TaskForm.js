@@ -5,6 +5,10 @@ import { TASK_FORM_MODES } from 'constants/popup-modes';
 import { selectTaskToEdit, useTasksActions } from 'features/tasks/tasksSlice';
 import { useGlobalActions } from 'features/global/globalSlice';
 
+const convertDateToISOString = (dateStr) => {
+  return new Date(dateStr).toISOString().slice(0, 10);
+};
+
 const TaskForm = () => {
   const taskFormMode = useSelector((state) => state.global.taskFormMode);
   const taskToEdit = useSelector(selectTaskToEdit);
@@ -15,7 +19,9 @@ const TaskForm = () => {
     ? {
         title: taskToEdit.title,
         description: taskToEdit.description,
-        deadline: new Date(taskToEdit.deadline).toISOString().slice(0, 10),
+        deadline: taskToEdit.deadline
+          ? convertDateToISOString(taskToEdit.deadline)
+          : '',
       }
     : {};
 

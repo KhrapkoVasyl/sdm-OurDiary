@@ -38,7 +38,9 @@ const Task = ({ id, title, description, isDone, deadline, doneDate }) => {
         </S.Description>
       </td>
       <td>
-        <S.Date>{new Date(deadline).toLocaleDateString()}</S.Date>
+        <S.Date>
+          {deadline ? new Date(deadline).toLocaleDateString() : <>&mdash;</>}
+        </S.Date>
       </td>
       <td>
         {doneDate ? (
