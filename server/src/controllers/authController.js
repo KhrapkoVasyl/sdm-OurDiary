@@ -1,10 +1,16 @@
 'use strict';
 
 const generateAccessToken = require('../utils/generateAccessToken');
+const { validationResult } = require('express-validator');
 
 class AuthController {
   async registration(req, res) {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        throw new Error(errors);
+      }
+
       const { login, password } = req.body;
 
       const UserWithSameName = findUserByName(login); // сервіс findUserByName
@@ -27,6 +33,11 @@ class AuthController {
 
   async login(req, res) {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        throw new Error(errors);
+      }
+
       const { login, password } = req.body;
 
       const User = findUserByNameService(login, password);
