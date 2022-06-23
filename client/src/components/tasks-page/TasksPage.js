@@ -115,6 +115,7 @@ const TasksPage = ({ title, titleIconColor }) => {
         <RemoveAllButton />
       </S.PageHead>
       <TaskList tasks={tasks} />
+      <S.TotalTasks>Total: 12</S.TotalTasks>
     </S.Container>
   );
 };

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { getThemeValue } from 'utils/getThemeValue';
 
 export const Container = styled.div`
   height: 100%;
@@ -21,4 +22,10 @@ export const Title = styled.h1`
     color: ${(props) => props.iconColor};
     margin-right: 20px;
   }
+`;
+
+export const TotalTasks = styled.p`
+  color: ${getThemeValue('colorTextTertiary')};
+  font-size: 14px;
+  margin-top: 10px;
 `;

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { getThemeValue } from 'utils/getThemeValue';
 
 export const TableContainer = styled.div`
-  height: calc(100% - 60px);
+  height: calc(100% - 70px);
   overflow: auto;
 
   ::-webkit-scrollbar {
