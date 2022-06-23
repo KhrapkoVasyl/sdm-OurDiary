@@ -1,20 +1,20 @@
 'use strict';
 
-class Task {
-  id;
-  userId;
-  title;
-  description;
-  isDone;
-  completionDate;
+const Model = require('./model');
 
-  constructor({ id, uid, title, description, isDone, completionDate }) {
+class Task extends Model {
+  #requiredParams = ['id', 'userID', 'title', 'isDone'];
+
+  constructor({ id, userID, title, description, isDone, completionDate }) {
+    super();
     this.id = id;
-    this.userID = uid;
+    this.userID = userID;
     this.title = title;
     this.description = description;
     this.isDone = isDone;
     this.completionDate = completionDate;
+
+    this.checkRequiredParams(this.#requiredParams);
   }
 }
 
