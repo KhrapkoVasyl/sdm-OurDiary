@@ -91,7 +91,7 @@ class FileBasedDB {
     const taskID = this.#currentTaskID++;
     const newTask = new Task({ id: taskID, ...task });
     this.#tasks.push(newTask);
-    this.#saveFile(this.#pathToTasksFile, this.#tasks);
+    await this.#saveFile(this.#pathToTasksFile, this.#tasks);
     return newTask;
   }
 
@@ -112,8 +112,17 @@ class FileBasedDB {
 
     const updatedTaskIndex = this.#tasks.findIndex(task => task.id === tid);
     this.#tasks.splice(updatedTaskIndex, 1, taskToUpdate);
-    this.#saveFile(this.#pathToTasksFile, this.#tasks);
+    await this.#saveFile(this.#pathToTasksFile, this.#tasks);
     return taskToUpdate;
+  }
+
+  async deleteTask(tid) {
+    const taskToDeleteIndex = this.#tasks.findIndex(task => task.id === tid);
+    console.log(taskToDeleteIndex);
+    if (taskToDeleteIndex === -1) return;
+    const [deletedTask] = this.#tasks.splice(taskToDeleteIndex, 1);
+    await this.#saveFile(this.#pathToTasksFile, this.#tasks);
+    return deletedTask;
   }
 }
 
