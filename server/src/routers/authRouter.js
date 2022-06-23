@@ -9,7 +9,7 @@ const {
 } = require('../middleware/authValidation');
 
 authRouter
-  .post('/signup', registrValidationScheme, authController.registration)
-  .post('/signin', loginValidationScheme, authController.login);
+  .post('/signup', registrValidationScheme, authController.signUp)
+  .post('/signin', loginValidationScheme, authController.signIn);
 
 module.exports = authRouter;

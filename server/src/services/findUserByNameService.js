@@ -3,12 +3,12 @@
 const db = require('../db/db');
 
 const findUserByNameService = async (login) => {
-  const User = await db.findUserByName(login);
-  if (!User) {
+  const user = await db.findUserByName(login);
+  if (!user) {
     throw new Error("Incorrect login!")
   }
 
-  return User;
+  return user;
 };
 
 module.exports = findUserByNameService;

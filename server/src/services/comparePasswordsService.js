@@ -3,9 +3,9 @@
 const db = require('../db/db');
 
 const comparePasswordsService = async (login, password) => {
-  const User = await db.findUserByName(login);
+  const user = await db.findUserByName(login);
 
-  return password === User.password ? true : false;
+  return password === user.password ? true : false;
 };
 
 module.exports = comparePasswordsService;

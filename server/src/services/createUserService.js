@@ -3,8 +3,8 @@
 const db = require('../db/db');
 
 const createUserService = async (login, password) => {
-  const User = await db.findUserByName(login);
-  if (User) {
+  const user = await db.findUserByName(login);
+  if (user) {
     throw new Error('User with the same name is already exists!');
   }
 

@@ -3,10 +3,6 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = function (req, res, next) {
-  if (req.method === 'OPTIONS') {
-    next();
-  }
-
   try {
     const accessToken = req.headers.accesstoken;
 
@@ -14,7 +10,7 @@ module.exports = function (req, res, next) {
       return res.status(401).json({ message: 'The user is not authorized' });
     }
 
-    const accessTokenSecret = process.env.tokenSecret;
+    const accessTokenSecret = process.env.TOKEN_SECRET;
     const payload = jwt.verify(accessToken, accessTokenSecret);
     req.userId = payload.userId;
 
