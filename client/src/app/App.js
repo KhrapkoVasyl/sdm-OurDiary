@@ -2,7 +2,7 @@ import * as S from './App.style';
 import { Router } from 'components/router';
 import { useSelector } from 'react-redux';
 import { Popup } from 'components/popup';
-import { AddTaskForm } from 'components/add-task-form';
+import { TaskForm } from 'components/task-form';
 import { POPUP_MODES } from 'constants/popup-modes';
 
 const App = () => {
@@ -15,7 +15,7 @@ const App = () => {
         title={popupMode === POPUP_MODES.CREATE ? 'Add New Task' : 'Edit Task'}
         isOpen={isPopupOpen}
       >
-        <AddTaskForm />
+        <TaskForm />
       </Popup>
       <Router />
     </S.AppContainer>
