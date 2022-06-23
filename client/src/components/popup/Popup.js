@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { useGlobalActions } from 'features/global/globalSlice';
+import { useTasksActions } from 'features/tasks/tasksSlice';
 
 const customStyles = {
   content: {
@@ -12,7 +13,7 @@ const customStyles = {
     transform: 'translate(-50%, -50%)',
   },
   overlay: {
-    backdropFilter: 'blur(10px)',
+    backdropFilter: 'blur(5px)',
   },
 };
 
@@ -20,8 +21,10 @@ Modal.setAppElement('#root');
 
 const Popup = ({ children, isOpen }) => {
   const { setIsPopupOpen } = useGlobalActions();
+  const { setTaskToEdit } = useTasksActions();
   const onClosePopupHandler = () => {
     setIsPopupOpen(false);
+    setTaskToEdit(null);
   };
 
   return (
