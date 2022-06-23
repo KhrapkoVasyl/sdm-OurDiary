@@ -45,6 +45,25 @@ class TaskController {
       });
     }
   }
+
+  async deleteTask(req, res) {
+    try {
+      const userID = req.userID;
+      const taskID = req.body.id;
+
+      const dletedTask = await deleteTask(userID, taskID);
+
+      res.status(200).json({ 
+        status: 'success', 
+        message: 'Task was deleted!', 
+      });
+    } catch (err) {
+      res.status(400).json({ 
+        status: 'failed', 
+        message: err.message 
+      });
+    }
+  }
 }
 
 module.exports = new TaskController();
