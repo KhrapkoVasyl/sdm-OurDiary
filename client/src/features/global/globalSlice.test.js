@@ -4,7 +4,7 @@ import { TASK_FORM_MODES } from 'constants/popup-modes';
 describe('global reducer', () => {
   const initialState = {
     isPopupOpen: false,
-    taskFormMode: TASK_FORM_MODES.EDIT,
+    taskFormMode: TASK_FORM_MODES.CREATE,
     isLoading: false,
   };
 
@@ -36,7 +36,7 @@ describe('global reducer', () => {
     expect(actual.isLoading).toEqual(true);
   });
 
-  it('should handle setting popup mode correctly', () => {
+  it('should handle setting task form mode correctly', () => {
     const actual = globalReducer(
       initialState,
       globalActions.setTaskFormMode(TASK_FORM_MODES.EDIT)

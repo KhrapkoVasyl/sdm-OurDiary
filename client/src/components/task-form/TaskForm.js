@@ -52,7 +52,6 @@ const TaskForm = () => {
 
     addNewTask(task);
     setIsPopupOpen(false);
-    console.log('Created', task);
   };
 
   return (
