@@ -11,6 +11,10 @@ taskRouter
   .patch('/update', authMiddleware, taskController.updateTask)
   .patch('/markcompleted', authMiddleware, taskController.markTaskAsCompleted)
   .patch('/markuncompleted', authMiddleware, taskController.markTaskAsUncompleted)
-  .delete('/delete', authMiddleware, taskController.deleteTask);
+  .delete('/delete', authMiddleware, taskController.deleteTask)
+  .get('/getall', authMiddleware, getAllUserTasks)
+  .get('/getcompleted', authMiddleware, getAllCompletedTasks)
+  .get('/getuncompleted', authMiddleware, getAllUncompletedTasks)
+  .get('/getoverdue', authMiddleware, getAllOverdueTasks);
 
 module.exports = taskRouter;

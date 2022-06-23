@@ -19,7 +19,7 @@ class TaskController {
 
       res.status(201).json({ 
         status: 'success', 
-        message: 'Task was created!', 
+        task 
       });
     } catch (err) {
       res.status(400).json({ 
@@ -40,7 +40,7 @@ class TaskController {
 
       res.status(200).json({ 
         status: 'success', 
-        message: 'Task was updated!', 
+        task
       });
     } catch (err) {
       res.status(400).json({ 
@@ -55,16 +55,16 @@ class TaskController {
       const userID = req.userID;
       const taskID = req.body.id;
 
-      const dletedTask = await deleteTask(userID, taskID);
+      const deletedTask = await deleteTask(userID, taskID);
 
       res.status(200).json({ 
         status: 'success', 
-        message: 'Task was deleted!', 
+        deletedTask
       });
     } catch (err) {
       res.status(400).json({ 
         status: 'failed', 
-        message: err.message 
+        message: err.message  
       });
     }
   }
@@ -77,7 +77,7 @@ class TaskController {
       const changedTask = await markTaskAsCompleted(userID, taskID); 
       res.status(200).json({ 
         status: 'success', 
-        message: 'Task changed to complete!', 
+        changedTask
       });
     } catch (err) {
       res.status(400).json({ 
@@ -95,7 +95,7 @@ class TaskController {
       const changedTask = await markTaskAsUncompleted(userID, taskID); 
       res.status(200).json({ 
         status: 'success', 
-        message: 'Task changed to uncomplete!', 
+        changedTask
       });
     } catch (err) {
       res.status(400).json({ 
@@ -113,7 +113,7 @@ class TaskController {
 
       res.status(201).json({ 
         status: 'success', 
-        tasks, 
+        tasks
       });
     } catch (err) {
       res.status(400).json({ 
@@ -131,7 +131,7 @@ class TaskController {
 
       res.status(201).json({ 
         status: 'success', 
-        tasks, 
+        tasks
       });
     } catch (err) {
       res.status(400).json({ 
@@ -149,7 +149,7 @@ class TaskController {
 
       res.status(201).json({ 
         status: 'success', 
-        tasks, 
+        tasks
       });
     } catch (err) {
       res.status(400).json({ 
@@ -167,7 +167,7 @@ class TaskController {
 
       res.status(201).json({ 
         status: 'success', 
-        tasks, 
+        tasks
       });
     } catch (err) {
       res.status(400).json({ 
