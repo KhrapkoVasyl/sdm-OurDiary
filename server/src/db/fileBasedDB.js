@@ -139,9 +139,4 @@ class FileBasedDB {
   }
 }
 
-(async () => {
-  const db = new FileBasedDB();
-  await db.connect();
-})();
-
 module.exports = FileBasedDB;
