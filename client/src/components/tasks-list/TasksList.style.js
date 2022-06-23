@@ -21,7 +21,6 @@ export const TableContainer = styled.div`
 
 export const Table = styled.table`
   width: 100%;
-  height: 100%;
   overflow-y: auto;
   padding-right: 20px;
 

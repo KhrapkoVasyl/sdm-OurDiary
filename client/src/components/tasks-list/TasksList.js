@@ -22,6 +22,7 @@ const TasksList = ({ tasks }) => {
               return (
                 <Task
                   key={task.id * Math.random()}
+                  id={task.id}
                   title={task.title}
                   description={task.description}
                   isDone={task.isDone}

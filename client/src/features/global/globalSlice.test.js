@@ -1,10 +1,10 @@
 import { globalActions, globalReducer } from './globalSlice';
-import { POPUP_MODES } from 'constants/popup-modes';
+import { TASK_FORM_MODES } from 'constants/popup-modes';
 
 describe('global reducer', () => {
   const initialState = {
     isPopupOpen: false,
-    popupMode: POPUP_MODES.EDIT,
+    taskFormMode: TASK_FORM_MODES.EDIT,
     isLoading: false,
   };
 
@@ -39,8 +39,8 @@ describe('global reducer', () => {
   it('should handle setting popup mode correctly', () => {
     const actual = globalReducer(
       initialState,
-      globalActions.setPopupMode(POPUP_MODES.EDIT)
+      globalActions.setTaskFormMode(TASK_FORM_MODES.EDIT)
     );
-    expect(actual.popupMode).toEqual(POPUP_MODES.EDIT);
+    expect(actual.taskFormMode).toEqual(TASK_FORM_MODES.EDIT);
   });
 });

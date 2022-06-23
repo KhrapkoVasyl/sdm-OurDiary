@@ -7,10 +7,10 @@ import { SideNavItem } from 'components/side-nav-item';
 import { useMemo } from 'react';
 import { useTheme } from 'styled-components';
 import { useGlobalActions } from 'features/global/globalSlice';
-import { POPUP_MODES } from 'constants/popup-modes';
+import { TASK_FORM_MODES } from 'constants/popup-modes';
 
 const SideNav = () => {
-  const { setIsPopupOpen, setPopupMode } = useGlobalActions();
+  const { setIsPopupOpen, setTaskFormMode } = useGlobalActions();
   const theme = useTheme();
   const navItemsContent = useMemo(
     () => [
@@ -43,7 +43,7 @@ const SideNav = () => {
   );
 
   const onAddTaskButtonClick = () => {
-    setPopupMode(POPUP_MODES.CREATE);
+    setTaskFormMode(TASK_FORM_MODES.CREATE);
     setIsPopupOpen(true);
   };
 

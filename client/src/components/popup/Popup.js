@@ -18,9 +18,9 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-const Popup = ({ title, children, isOpen }) => {
+const Popup = ({ children, isOpen }) => {
   const { setIsPopupOpen } = useGlobalActions();
-  const onCloseModalHandler = () => {
+  const onClosePopupHandler = () => {
     setIsPopupOpen(false);
   };
 
@@ -28,19 +28,18 @@ const Popup = ({ title, children, isOpen }) => {
     <div>
       <Modal
         isOpen={isOpen}
-        onRequestClose={onCloseModalHandler}
+        onRequestClose={onClosePopupHandler}
         style={customStyles}
         contentLabel="Example Modal"
       >
         <div
           style={{
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-end',
             alignItems: 'center',
           }}
         >
-          <h2>{title}</h2>
-          <button onClick={onCloseModalHandler}>close</button>
+          <button onClick={onClosePopupHandler}>close</button>
         </div>
         {children}
       </Modal>

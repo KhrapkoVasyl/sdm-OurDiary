@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { useActions } from 'hooks/useActions';
-import { POPUP_MODES } from 'constants/popup-modes';
+import { TASK_FORM_MODES } from 'constants/popup-modes';
 
 const initialState = {
   isPopupOpen: false,
-  popupMode: POPUP_MODES.EDIT,
+  taskFormMode: TASK_FORM_MODES.EDIT,
   isLoading: false,
 };
 
@@ -18,8 +18,8 @@ const globalSlice = createSlice({
     setIsLoading: (state, action) => {
       state.isLoading = action.payload;
     },
-    setPopupMode: (state, action) => {
-      state.popupMode = action.payload;
+    setTaskFormMode: (state, action) => {
+      state.taskFormMode = action.payload;
     },
   },
 });

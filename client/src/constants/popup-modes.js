@@ -1,4 +1,4 @@
-export const POPUP_MODES = {
+export const TASK_FORM_MODES = {
   CREATE: 1,
   EDIT: 2,
 };
