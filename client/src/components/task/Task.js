@@ -1,3 +1,5 @@
+import { POPUP_MODES } from 'constants/popup-modes';
+import { useGlobalActions } from 'features/global/globalSlice';
 import React from 'react';
 import { FaTrashAlt, FaRegEdit } from 'react-icons/fa';
 import * as S from './Task.style';
@@ -10,6 +12,12 @@ const Task = ({
   doneDate,
   toggleTask,
 }) => {
+  const { setPopupMode, setIsPopupOpen } = useGlobalActions();
+  const onEditButtonClickHandler = (id) => {
+    setPopupMode(POPUP_MODES.EDIT);
+    setIsPopupOpen(true);
+  };
+
   return (
     <tr>
       <td>
@@ -29,7 +37,7 @@ const Task = ({
         </S.DeleteButton>
       </td>
       <td>
-        <S.EditButton>
+        <S.EditButton onClick={onEditButtonClickHandler.bind(null, 1)}>
           <FaRegEdit />
         </S.EditButton>
       </td>

@@ -3,12 +3,7 @@ import { SignInPage } from 'pages/sign-in-page';
 import { SignUpPage } from 'pages/sign-up-page';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-
-const ROUTES = {
-  MAIN: '/',
-  SIGN_IN: '/sign-in',
-  SIGN_UP: '/sign-up',
-};
+import { ROUTES } from 'constants/routes';
 
 const Router = () => {
   return (

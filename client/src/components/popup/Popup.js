@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
+import { useGlobalActions } from 'features/global/globalSlice';
 
 const customStyles = {
   content: {
@@ -17,12 +18,17 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-const Popup = ({ title, children, isOpen, openModal, closeModal }) => {
+const Popup = ({ title, children, isOpen }) => {
+  const { setIsPopupOpen } = useGlobalActions();
+  const onCloseModalHandler = () => {
+    setIsPopupOpen(false);
+  };
+
   return (
     <div>
       <Modal
         isOpen={isOpen}
-        onRequestClose={closeModal}
+        onRequestClose={onCloseModalHandler}
         style={customStyles}
         contentLabel="Example Modal"
       >
@@ -34,7 +40,7 @@ const Popup = ({ title, children, isOpen, openModal, closeModal }) => {
           }}
         >
           <h2>{title}</h2>
-          <button onClick={closeModal}>close</button>
+          <button onClick={onCloseModalHandler}>close</button>
         </div>
         {children}
       </Modal>

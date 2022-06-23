@@ -1,28 +1,22 @@
 import * as S from './App.style';
-import { useState } from 'react';
 import { Router } from 'components/router';
+import { useSelector } from 'react-redux';
+import { Popup } from 'components/popup';
+import { AddTaskForm } from 'components/add-task-form';
+import { POPUP_MODES } from 'constants/popup-modes';
 
 const App = () => {
-  const [modalIsOpen, setIsOpen] = useState(false);
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  const isPopupOpen = useSelector((state) => state.global.isPopupOpen);
+  const popupMode = useSelector((state) => state.global.popupMode);
 
   return (
     <S.AppContainer>
-      {/* <Popup
-        title={'Add new Task'}
-        openModal={openModal}
-        closeModal={closeModal}
-        isOpen={modalIsOpen}
+      <Popup
+        title={popupMode === POPUP_MODES.CREATE ? 'Add New Task' : 'Edit Task'}
+        isOpen={isPopupOpen}
       >
         <AddTaskForm />
-      </Popup>*/}
+      </Popup>
       <Router />
     </S.AppContainer>
   );
