@@ -44,9 +44,9 @@ class FileBasedDB {
     this.#currentUserID = this.#findCurrentID(this.#users);
   }
 
-  #findCurrentID(arrObjectsWithID) {
-    if (!arrObjectsWithID.length) return 0;
-    const idArr = arrObjectsWithID.map(el => el.id);
+  #findCurrentID(modelsArr) {
+    if (!modelsArr.length) return 0;
+    const idArr = modelsArr.map(el => el.id);
     const lastID = Math.max.apply(null, idArr);
     return lastID + 1;
   }
