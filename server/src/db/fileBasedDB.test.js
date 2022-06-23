@@ -45,5 +45,26 @@ describe('File Based Database Testing', () => {
       const testFileAccess = async () => await fs.access(pathToFile);
       expect(testFileAccess).not.toThrow();
     });
+
+    test('Should create datafile ./test/users.json and not throw an error when trying to access this datafile', async () => {
+      const pathToFile = path.join(dirPath, 'users.json');
+
+      const testFileAccess = async () => await fs.access(pathToFile);
+      expect(testFileAccess).not.toThrow();
+    });
   });
+
+  describe('Testing the .inserUser() method', () => {
+    test('Should create datafile ./test/users.json and not throw an error when trying to access this datafile', async () => {
+      const pathToFile = path.join(dirPath, 'users.json');
+
+      const testFileAccess = async () => await fs.access(pathToFile);
+      expect(testFileAccess).not.toThrow();
+    });
+  });
+  // describe('Testing the .connect() method', () => {});
+  // describe('Testing the .connect() method', () => {});
+  // describe('Testing the .connect() method', () => {});
+  // describe('Testing the .connect() method', () => {});
+  // describe('Testing the .connect() method', () => {});
 });

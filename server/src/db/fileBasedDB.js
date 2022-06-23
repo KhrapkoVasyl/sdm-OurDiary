@@ -116,6 +116,8 @@ class FileBasedDB {
 
   async updateTask(tid, dataToUpdate) {
     const taskToUpdate = await this.findTask(tid);
+    // eslint-disable-next-line no-prototype-builtins
+    if (dataToUpdate.hasOwnProperty('id')) delete dataToUpdate.id;
     const propertiesToUpdate = Object.keys(dataToUpdate);
     for (const property of propertiesToUpdate) {
       taskToUpdate[property] = dataToUpdate[property];
