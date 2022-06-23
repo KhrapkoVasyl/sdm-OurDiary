@@ -10,9 +10,9 @@ class Task extends Model {
     this.id = id;
     this.userID = userID;
     this.title = title;
-    this.description = description;
+    this.description = description || '';
     this.isDone = isDone;
-    this.completionDate = completionDate;
+    this.completionDate = completionDate || null;
 
     this.checkRequiredParams(this.#requiredParams);
   }
