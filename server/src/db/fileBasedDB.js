@@ -68,6 +68,10 @@ class FileBasedDB {
   async findUserById(uid) {
     return this.#users.find(user => user.id === uid);
   }
+
+  async findUserByName(name) {
+    return this.#users.find(user => user.name === name);
+  }
 }
 
 (async () => {
