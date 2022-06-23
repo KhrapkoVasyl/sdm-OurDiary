@@ -72,11 +72,17 @@ class FileBasedDB {
   async findUserByName(name) {
     return this.#users.find(user => user.name === name);
   }
+
+  async findTask(tid) {
+    return this.#tasks.find(task => task.id === tid);
+  }
 }
 
 (async () => {
   const db = new FileBasedDB();
   await db.connect();
+  const task = await db.findTask(1);
+  console.log(task);
 })();
 
 module.exports = FileBasedDB;
