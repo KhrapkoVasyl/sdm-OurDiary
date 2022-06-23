@@ -1,6 +1,8 @@
 'use strict';
 
+const fs = require('fs').promises;
 const path = require('path');
+const { ERRNO_NO_SUCH_FILE, ERR_CODE_NO_SUCH_FILE } = require('../config');
 
 class FileBasedDB {
   #tasksFilename = 'tasks.json';
@@ -8,6 +10,9 @@ class FileBasedDB {
   #dataDirectory;
   #pathToTasksFile;
   #pathToUsersFile;
+
+  #currentUserID = 0;
+  #currentTaskID = 0;
 
   #tasks = [];
   #users = [];
@@ -19,6 +24,51 @@ class FileBasedDB {
 
     this.#pathToUsersFile = path.join(this.#dataDirectory, this.#usersFilename);
   }
+
+  async connect() {
+    await fs.mkdir(path.join(this.#dataDirectory), {
+      recursive: true,
+    }); // recursively creates non-existent directories in the given path
+
+    await this.#createFileIfNotExist(this.#pathToTasksFile, this.#tasks);
+    await this.#createFileIfNotExist(this.#pathToUsersFile, this.#users);
+
+    const tasksStr = await fs.readFile(this.#pathToTasksFile);
+    const usersStr = await fs.readFile(this.#pathToUsersFile);
+
+    this.#tasks = JSON.parse(tasksStr);
+    this.#users = JSON.parse(usersStr);
+
+    this.#currentTaskID = this.#findCurrentID(this.#tasks);
+    this.#currentUserID = this.#findCurrentID(this.#users);
+  }
+
+  #findCurrentID(arrObjectsWithID) {
+    if (!arrObjectsWithID.length) return 0;
+    const idArr = arrObjectsWithID.map(el => el.id);
+    const lastID = Math.max.apply(null, idArr);
+    return lastID + 1;
+  }
+
+  async #createFileIfNotExist(path, fileData = '') {
+    await fs.access(path).catch(async err => {
+      if (
+        err.code === ERR_CODE_NO_SUCH_FILE &&
+        err.errno === ERRNO_NO_SUCH_FILE
+      ) {
+        await this.#saveFile(path, fileData);
+      } else throw err;
+    });
+  }
+
+  async #saveFile(path, fileData) {
+    await fs.writeFile(path, JSON.stringify(fileData));
+  }
 }
+
+(async () => {
+  const db = new FileBasedDB();
+  await db.connect();
+})();
 
 module.exports = FileBasedDB;
