@@ -19,6 +19,22 @@ const initialState = {
       deadline: new Date().toLocaleDateString(),
       doneDate: null,
     },
+    {
+      title: 'Task 3',
+      id: 3,
+      description: 'some stupid text',
+      isDone: true,
+      deadline: new Date().toLocaleDateString(),
+      doneDate: new Date().toLocaleDateString(),
+    },
+    {
+      title: 'Task 4',
+      id: 4,
+      description: 'Some stupid text',
+      isDone: false,
+      deadline: new Date().toLocaleDateString(),
+      doneDate: null,
+    },
   ],
 };
 

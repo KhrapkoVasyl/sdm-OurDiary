@@ -7,7 +7,7 @@ import * as S from './Task.style';
 
 const Task = ({ id, title, description, isDone, deadline, doneDate }) => {
   const { setTaskFormMode, setIsPopupOpen } = useGlobalActions();
-  const { toggleTask } = useTasksActions();
+  const { toggleTask, deleteTask } = useTasksActions();
   const onEditButtonClickHandler = (id) => {
     setTaskFormMode(TASK_FORM_MODES.EDIT);
     setIsPopupOpen(true);
@@ -15,6 +15,10 @@ const Task = ({ id, title, description, isDone, deadline, doneDate }) => {
 
   const onTaskToggleHandler = (e) => {
     toggleTask({ id, isDone: e.target.value });
+  };
+
+  const onDeleteClickHandler = () => {
+    deleteTask(id);
   };
 
   return (
@@ -35,9 +39,9 @@ const Task = ({ id, title, description, isDone, deadline, doneDate }) => {
       <td>
         <S.Date>{deadline}</S.Date>
       </td>
-      <td>{doneDate && <S.Date>{doneDate}</S.Date>}</td>
+      <td>{doneDate ? <S.Date>{doneDate}</S.Date> : <>&mdash;</>}</td>
       <td>
-        <S.DeleteButton>
+        <S.DeleteButton onClick={onDeleteClickHandler}>
           <FaTrashAlt />
         </S.DeleteButton>
       </td>
