@@ -293,5 +293,32 @@ describe('File Based Database Testing', () => {
       expect(updatedTask.userID).not.toBe(-1);
       expect(updatedTask).toEqual(task);
     });
+
+    test('Should not throw an error when trying to update a non-existing job', async () => {
+      expect(async () => await db.updateTask(-1)).not.toThrow();
+    });
+  });
+
+  describe('Testing the .deleteTask() method', () => {
+    test('Should delete the existing task with the specified id, returned task should be equal to task which we deleted, the number of user tasks should be equal to zero', async () => {
+      const user = await db.insertUser({ name: 'test', password: '123' }); //preparing user to use for userID in task
+      const taskToInsert = {
+        userID: user.id,
+        title: 'task',
+        isDone: false,
+      };
+      const task = await db.insertTask(taskToInsert);
+
+      const deletedTask = await db.deleteTask(task.id);
+      const allUserTasks = await db.findAllTasks(user.id);
+
+      expect(deletedTask).toEqual(task);
+      expect(allUserTasks.length).toBe(0);
+      expect(allUserTasks.includes(deletedTask)).toBe(false);
+    });
+
+    test('Should not throw an error if an invalid id is specified', async () => {
+      expect(async () => await db.deleteTask(-1)).not.toThrow();
+    });
   });
 });

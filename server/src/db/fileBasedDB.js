@@ -126,7 +126,7 @@ class FileBasedDB {
     return newUser;
   }
 
-  async updateTask(tid, dataToUpdate) {
+  async updateTask(tid, dataToUpdate = {}) {
     const taskToUpdate = await this.findTask(tid);
     // eslint-disable-next-line no-prototype-builtins
     if (dataToUpdate.hasOwnProperty('id')) delete dataToUpdate.id;
