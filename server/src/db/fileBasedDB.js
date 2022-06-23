@@ -66,6 +66,19 @@ class FileBasedDB {
     await fs.writeFile(path, JSON.stringify(fileData));
   }
 
+  async syncDB() {
+    await this.#saveFile(this.#pathToTasksFile, this.#tasks);
+    await this.#saveFile(this.#pathToUsersFile, this.#users);
+  }
+
+  async clearDB() {
+    this.#tasks = [];
+    this.#users = [];
+    this.#currentTaskID = 0;
+    this.#currentUserID = 0;
+    await this.syncDB();
+  }
+
   async findUserById(uid) {
     return this.#users.find(user => user.id === uid);
   }
