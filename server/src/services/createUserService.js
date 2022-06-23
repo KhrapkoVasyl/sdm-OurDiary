@@ -14,7 +14,7 @@ const createUserService = async (login, password) => {
     throw new Error('Failed to create User!');
   }
 
-  return newUser.id;
+  return newUser;
 };
 
 module.exports = createUserService;

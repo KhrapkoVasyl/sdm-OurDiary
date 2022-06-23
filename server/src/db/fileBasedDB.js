@@ -134,7 +134,6 @@ class FileBasedDB {
 
   async deleteTask(tid) {
     const taskToDeleteIndex = this.#tasks.findIndex(task => task.id === tid);
-    console.log(taskToDeleteIndex);
     if (taskToDeleteIndex === -1) return;
     const [deletedTask] = this.#tasks.splice(taskToDeleteIndex, 1);
     await this.#saveFile(this.#pathToTasksFile, this.#tasks);
