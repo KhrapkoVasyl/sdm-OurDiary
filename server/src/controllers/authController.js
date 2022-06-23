@@ -2,26 +2,20 @@
 
 const generateAccessToken = require('../utils/generateAccessToken');
 const { validationResult } = require('express-validator');
+const createUserService = require('../services/createUserService');
 
 class AuthController {
   async registration(req, res) {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        throw new Error(errors);
+        return res.status(400).json({ message: errors });
       }
 
       const { login, password } = req.body;
 
-      const UserWithSameName = findUserByName(login); // сервіс findUserByName
-      if (UserWithSameName) {
-        throw new Error('User with the same name is already exists!');
-      }
-
-      const User = createUserService(login, password);
-      if (!User) {
-        throw new Error("User wasn't created!");
-      }
+      const User = await createUserService(login, password);
+      console.log(User);
 
       const accessToken = generateAccessToken(User.id);
 
@@ -35,7 +29,7 @@ class AuthController {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        throw new Error(errors);
+        return res.status(400).json({ message: errors });
       }
 
       const { login, password } = req.body;
