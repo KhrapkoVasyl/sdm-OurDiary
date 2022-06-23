@@ -64,6 +64,10 @@ class FileBasedDB {
   async #saveFile(path, fileData) {
     await fs.writeFile(path, JSON.stringify(fileData));
   }
+
+  async findUserById(uid) {
+    return this.#users.find(user => user.id === uid);
+  }
 }
 
 (async () => {
