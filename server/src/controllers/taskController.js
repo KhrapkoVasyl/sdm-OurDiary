@@ -64,6 +64,42 @@ class TaskController {
       });
     }
   }
+
+  async markTaskAsCompleted(req, res) {
+    try {
+      const userID = req.userID;
+      const taskID = req.body.id;
+
+      const changedTask = await markTaskAsCompleted(userID, taskID); 
+      res.status(200).json({ 
+        status: 'success', 
+        message: 'Task changed to complete!', 
+      });
+    } catch (err) {
+      res.status(400).json({ 
+        status: 'failed', 
+        message: err.message 
+      });
+    }
+  }
+
+  async markTaskAsUncompleted(req, res) {
+    try {
+      const userID = req.userID;
+      const taskID = req.body.id;
+
+      const changedTask = await markTaskAsUncompleted(userID, taskID); 
+      res.status(200).json({ 
+        status: 'success', 
+        message: 'Task changed to uncomplete!', 
+      });
+    } catch (err) {
+      res.status(400).json({ 
+        status: 'failed', 
+        message: err.message 
+      });
+    }
+  }
 }
 
 module.exports = new TaskController();
