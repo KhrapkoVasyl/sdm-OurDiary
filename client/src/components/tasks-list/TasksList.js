@@ -9,12 +9,12 @@ const TasksList = ({ tasks }) => {
         <S.Table>
           <S.TableHead>
             <tr>
-              <th></th>
-              <th></th>
-              <th>Due to</th>
-              <th>Done at</th>
-              <th></th>
-              <th></th>
+              <th style={{ width: '10%' }}></th>
+              <th style={{ width: '50%' }}></th>
+              <th style={{ width: '15%' }}>Due to</th>
+              <th style={{ width: '15%' }}>Done at</th>
+              <th style={{ width: '5%' }}></th>
+              <th style={{ width: '5%' }}></th>
             </tr>
           </S.TableHead>
           <tbody>
@@ -22,6 +22,7 @@ const TasksList = ({ tasks }) => {
               return (
                 <Task
                   key={task.id * Math.random()}
+                  id={task.id}
                   title={task.title}
                   description={task.description}
                   isDone={task.isDone}

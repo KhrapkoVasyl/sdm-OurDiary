@@ -6,8 +6,11 @@ import { MdOutlineSchedule } from 'react-icons/md';
 import { SideNavItem } from 'components/side-nav-item';
 import { useMemo } from 'react';
 import { useTheme } from 'styled-components';
+import { useGlobalActions } from 'features/global/globalSlice';
+import { TASK_FORM_MODES } from 'constants/popup-modes';
 
 const SideNav = () => {
+  const { setIsPopupOpen, setTaskFormMode } = useGlobalActions();
   const theme = useTheme();
   const navItemsContent = useMemo(
     () => [
@@ -39,9 +42,14 @@ const SideNav = () => {
     []
   );
 
+  const onAddTaskButtonClick = () => {
+    setTaskFormMode(TASK_FORM_MODES.CREATE);
+    setIsPopupOpen(true);
+  };
+
   return (
     <S.Container>
-      <AddTaskButton />
+      <AddTaskButton onClick={onAddTaskButtonClick} />
       <S.NavList>
         {navItemsContent.map(({ text, icon, to, color }) => {
           return (

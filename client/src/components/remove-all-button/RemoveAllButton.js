@@ -2,9 +2,9 @@ import React from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 import * as S from './RemoveAllButton.style';
 
-const RemoveAllButton = () => {
+const RemoveAllButton = ({ onClick }) => {
   return (
-    <S.Button>
+    <S.Button onClick={onClick}>
       <S.IconWrapper>
         <S.TrashIcon />
       </S.IconWrapper>
