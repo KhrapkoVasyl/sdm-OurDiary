@@ -15,6 +15,7 @@ const Task = ({ id, title, description, isDone, deadline, doneDate }) => {
   };
 
   const onTaskToggleHandler = (e) => {
+    if (isDone) return;
     toggleTask({ id, isDone: e.target.value });
   };
 

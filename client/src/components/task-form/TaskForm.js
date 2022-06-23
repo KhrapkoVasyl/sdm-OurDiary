@@ -4,10 +4,7 @@ import { useForm } from 'react-hook-form';
 import { TASK_FORM_MODES } from 'constants/popup-modes';
 import { selectTaskToEdit, useTasksActions } from 'features/tasks/tasksSlice';
 import { useGlobalActions } from 'features/global/globalSlice';
-
-const convertDateToISOString = (dateStr) => {
-  return new Date(dateStr).toISOString().slice(0, 10);
-};
+import { formatDateToISO } from 'utils/fortmatDateToISO';
 
 const TaskForm = () => {
   const taskFormMode = useSelector((state) => state.global.taskFormMode);
@@ -20,7 +17,7 @@ const TaskForm = () => {
         title: taskToEdit.title,
         description: taskToEdit.description,
         deadline: taskToEdit.deadline
-          ? convertDateToISOString(taskToEdit.deadline)
+          ? formatDateToISO(taskToEdit.deadline)
           : '',
       }
     : {};

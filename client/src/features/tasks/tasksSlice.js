@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { useActions } from 'hooks/useActions';
 import { globalActions } from 'features/global/globalSlice';
+import { formatDateToISO } from 'utils/fortmatDateToISO';
 
 const initialState = {
   tasks: [
@@ -59,7 +60,8 @@ const tasksSlice = createSlice({
       const taskIndex = findTaskIndexById(state.tasks, id);
       const task = state.tasks[taskIndex];
       const isDone = task.isDone;
-      state.tasks[taskIndex] = { ...task, isDone: !isDone };
+      const doneDate = formatDateToISO(new Date().toString());
+      state.tasks[taskIndex] = { ...task, isDone: !isDone, doneDate };
     },
     updateTask: (state, { payload }) => {
       const { id, editedTask } = payload;
