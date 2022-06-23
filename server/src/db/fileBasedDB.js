@@ -3,6 +3,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 const { ERRNO_NO_SUCH_FILE, ERR_CODE_NO_SUCH_FILE } = require('../config');
+const { Task, User } = require('./models/main');
 
 class FileBasedDB {
   #tasksFilename = 'tasks.json';
@@ -84,6 +85,22 @@ class FileBasedDB {
       tasks = tasks.filter(task => task[param] === filterParams[param]);
     }
     return tasks;
+  }
+
+  async insertTask(task) {
+    const taskID = this.#currentTaskID++;
+    const newTask = new Task({ id: taskID, ...task });
+    this.#tasks.push(newTask);
+    this.#saveFile(this.#pathToTasksFile, this.#tasks);
+    return newTask;
+  }
+
+  async insertUser(user) {
+    const userID = this.#currentUserID++;
+    const newUser = new User({ id: userID, ...user });
+    this.#users.push(newUser);
+    await this.#saveFile(this.#pathToUsersFile, this.#users);
+    return newUser;
   }
 }
 
