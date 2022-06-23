@@ -102,6 +102,19 @@ class FileBasedDB {
     await this.#saveFile(this.#pathToUsersFile, this.#users);
     return newUser;
   }
+
+  async updateTask(tid, dataToUpdate) {
+    const taskToUpdate = await this.findTask(tid);
+    const propertiesToUpdate = Object.keys(dataToUpdate);
+    for (const property of propertiesToUpdate) {
+      taskToUpdate[property] = dataToUpdate[property];
+    }
+
+    const updatedTaskIndex = this.#tasks.findIndex(task => task.id === tid);
+    this.#tasks.splice(updatedTaskIndex, 1, taskToUpdate);
+    this.#saveFile(this.#pathToTasksFile, this.#tasks);
+    return taskToUpdate;
+  }
 }
 
 (async () => {
