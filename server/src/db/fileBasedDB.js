@@ -11,6 +11,7 @@ class FileBasedDB {
   #dataDirectory;
   #pathToTasksFile;
   #pathToUsersFile;
+  #EMPTY_ARR_JSON_SIZE = 4;
 
   #currentUserID = 0;
   #currentTaskID = 0;
@@ -34,14 +35,21 @@ class FileBasedDB {
     await this.#createFileIfNotExist(this.#pathToTasksFile, this.#tasks);
     await this.#createFileIfNotExist(this.#pathToUsersFile, this.#users);
 
-    const tasksStr = await fs.readFile(this.#pathToTasksFile);
-    const usersStr = await fs.readFile(this.#pathToUsersFile);
+    let tasksStr = await fs.readFile(this.#pathToTasksFile);
+    let usersStr = await fs.readFile(this.#pathToUsersFile);
+
+    tasksStr = this.#checkEmptyStringJSON(tasksStr);
+    usersStr = this.#checkEmptyStringJSON(usersStr);
 
     this.#tasks = JSON.parse(tasksStr);
     this.#users = JSON.parse(usersStr);
 
     this.#currentTaskID = this.#findCurrentID(this.#tasks);
     this.#currentUserID = this.#findCurrentID(this.#users);
+  }
+
+  #checkEmptyStringJSON(strJSON) {
+    return strJSON < this.#EMPTY_ARR_JSON_SIZE ? '[]' : strJSON;
   }
 
   #findCurrentID(modelsArr) {
@@ -64,19 +72,6 @@ class FileBasedDB {
 
   async #saveFile(path, fileData) {
     await fs.writeFile(path, JSON.stringify(fileData));
-  }
-
-  async syncDB() {
-    await this.#saveFile(this.#pathToTasksFile, this.#tasks);
-    await this.#saveFile(this.#pathToUsersFile, this.#users);
-  }
-
-  async clearDB() {
-    this.#tasks = [];
-    this.#users = [];
-    this.#currentTaskID = 0;
-    this.#currentUserID = 0;
-    await this.syncDB();
   }
 
   async findUserById(uid) {
