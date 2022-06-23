@@ -1,3 +1,5 @@
+'use strict';
+
 const db = require('../db/db');
 
 const createUserService = async (login, password) => {

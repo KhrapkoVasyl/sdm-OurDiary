@@ -1,3 +1,5 @@
+'use strict';
+
 const db = require('../db/db');
 
 const comparePasswordsService = async (login, password) => {

@@ -1,3 +1,5 @@
+'use strict';
+
 const Router = require('express');
 const authRouter = new Router();
 const authController = require('../controllers/authController');
