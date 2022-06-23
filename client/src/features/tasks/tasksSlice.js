@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { useActions } from 'hooks/useActions';
+import { globalActions } from 'features/global/globalSlice';
 
 const initialState = {
   tasks: [
@@ -67,13 +68,15 @@ const tasksSlice = createSlice({
       state.taskToEdit = null;
     },
     setTaskToEdit: (state, { payload: id }) => {
-      if (!id) {
-        state.taskToEdit = null;
-        return state;
-      }
       const taskIndex = findTaskIndexById(state.tasks, id);
       state.taskToEdit = state.tasks[taskIndex];
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(globalActions.setIsPopupOpen, (state, { payload }) => {
+      if (payload !== false) return state;
+      state.taskToEdit = null;
+    });
   },
 });
 

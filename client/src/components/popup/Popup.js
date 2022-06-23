@@ -21,10 +21,8 @@ Modal.setAppElement('#root');
 
 const Popup = ({ children, isOpen }) => {
   const { setIsPopupOpen } = useGlobalActions();
-  const { setTaskToEdit } = useTasksActions();
   const onClosePopupHandler = () => {
     setIsPopupOpen(false);
-    setTaskToEdit(null);
   };
 
   return (
