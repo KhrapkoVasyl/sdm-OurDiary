@@ -3,6 +3,8 @@
 const generateAccessToken = require('../utils/generateAccessToken');
 const { validationResult } = require('express-validator');
 const createUserService = require('../services/createUserService');
+const comparePasswordsService = require("../services/comparePasswordsService");
+const findUserByNameService = require("../services/findUserByNameService")
 
 class AuthController {
   async registration(req, res) {
@@ -15,7 +17,6 @@ class AuthController {
       const { login, password } = req.body;
 
       const User = await createUserService(login, password);
-      console.log(User);
 
       const accessToken = generateAccessToken(User.id);
 
@@ -34,14 +35,11 @@ class AuthController {
 
       const { login, password } = req.body;
 
-      const User = findUserByNameService(login, password);
-      if (!User) {
-        throw new Error('User with such name does not exists!');
-      }
+      const User = await findUserByNameService(login);
 
-      const isPasswordValid = comparePasswordsService(login, password); // сервіс comparePasswords
+      const isPasswordValid = await comparePasswordsService(login, password);
       if (!isPasswordValid) {
-        throw new Error('Incorrect password');
+        throw new Error('Incorrect password!');
       }
 
       const accessToken = generateAccessToken(User.id);
