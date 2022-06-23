@@ -3,6 +3,8 @@ import { Layout } from 'components/layout';
 import { Popup } from 'components/popup';
 import { AddTaskForm } from 'components/add-task-form';
 import { useState } from 'react';
+import { SignInPage } from 'pages/sign-in-page';
+import { SignUpPage } from 'pages/sign-up-page';
 
 const App = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -17,7 +19,7 @@ const App = () => {
 
   return (
     <S.AppContainer>
-      <Popup
+      {/* <Popup
         title={'Add new Task'}
         openModal={openModal}
         closeModal={closeModal}
@@ -25,7 +27,9 @@ const App = () => {
       >
         <AddTaskForm />
       </Popup>
-      <Layout />
+      <Layout /> */}
+      <SignInPage />
+      <SignUpPage />
     </S.AppContainer>
   );
 };
