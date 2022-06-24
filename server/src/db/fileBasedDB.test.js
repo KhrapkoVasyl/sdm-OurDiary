@@ -6,7 +6,7 @@ const fs = require('fs').promises;
 const FileBasedDB = require('./fileBasedDB');
 
 describe('File Based Database Testing', () => {
-  const dirPath = path.join(__dirname, 'testDB');
+  const dirPath = path.join('./src/db/testDB');
   const fileUsersPath = path.join(dirPath, 'users.json');
   const fileTasksPath = path.join(dirPath, 'tasks.json');
   const db = new FileBasedDB(dirPath);
@@ -18,7 +18,7 @@ describe('File Based Database Testing', () => {
   afterEach(async () => {
     await db.clearDB();
     await fs
-      .rm(dirPath, { recursive: true, force: true })
+      .rm('./src/db/testDB', { recursive: true, force: true })
       .catch(err => console.log(err));
   });
 
