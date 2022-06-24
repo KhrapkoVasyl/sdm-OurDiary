@@ -43,9 +43,6 @@ const tasksSlice = createSlice({
       const taskIndex = findTaskIndexById(state.tasks, id);
       state.taskToEdit = state.tasks[taskIndex];
     },
-    removeAllTasks: (state) => {
-      state.tasks = [];
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(globalActions.setIsPopupOpen, (state, { payload }) => {
