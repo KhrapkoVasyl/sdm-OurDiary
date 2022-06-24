@@ -2,6 +2,7 @@
 
 const db = require('../db/db');
 const bcrypt = require('bcryptjs');
+const { SALT } = require('../config')
 
 const createUserService = async (login, password) => {
   const user = await db.findUserByName(login);
@@ -9,8 +10,7 @@ const createUserService = async (login, password) => {
     throw new Error('User with the same name is already exists!');
   }
 
-  const salt = 7;
-  let hashPassword = await bcrypt.hash(password, salt);
+  let hashPassword = await bcrypt.hash(password, SALT);
 
   const newUser = await db.insertUser({ name: login, password: hashPassword });
 
