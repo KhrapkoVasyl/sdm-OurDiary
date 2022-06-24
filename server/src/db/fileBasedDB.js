@@ -11,6 +11,7 @@ class FileBasedDB {
   #dataDirectory;
   #pathToTasksFile;
   #pathToUsersFile;
+  #EMPTY_ARR_JSON_SIZE = 4;
 
   #currentUserID = 0;
   #currentTaskID = 0;
@@ -34,14 +35,21 @@ class FileBasedDB {
     await this.#createFileIfNotExist(this.#pathToTasksFile, this.#tasks);
     await this.#createFileIfNotExist(this.#pathToUsersFile, this.#users);
 
-    const tasksStr = await fs.readFile(this.#pathToTasksFile);
-    const usersStr = await fs.readFile(this.#pathToUsersFile);
+    let tasksStr = await fs.readFile(this.#pathToTasksFile);
+    let usersStr = await fs.readFile(this.#pathToUsersFile);
+
+    tasksStr = this.#checkEmptyStringJSON(tasksStr);
+    usersStr = this.#checkEmptyStringJSON(usersStr);
 
     this.#tasks = JSON.parse(tasksStr);
     this.#users = JSON.parse(usersStr);
 
     this.#currentTaskID = this.#findCurrentID(this.#tasks);
     this.#currentUserID = this.#findCurrentID(this.#users);
+  }
+
+  #checkEmptyStringJSON(strJSON) {
+    return strJSON < this.#EMPTY_ARR_JSON_SIZE ? '[]' : strJSON;
   }
 
   #findCurrentID(modelsArr) {
@@ -66,7 +74,7 @@ class FileBasedDB {
     await fs.writeFile(path, JSON.stringify(fileData));
   }
 
-  async syncDB() {
+  async #syncDB() {
     await this.#saveFile(this.#pathToTasksFile, this.#tasks);
     await this.#saveFile(this.#pathToUsersFile, this.#users);
   }
@@ -76,7 +84,7 @@ class FileBasedDB {
     this.#users = [];
     this.#currentTaskID = 0;
     this.#currentUserID = 0;
-    await this.syncDB();
+    await this.#syncDB();
   }
 
   async findUserById(uid) {
@@ -102,8 +110,7 @@ class FileBasedDB {
 
   async insertTask(task) {
     const user = await this.findUserById(task.userID);
-    if (!user)
-      throw new Error('Trying to assign a record to an inexisting user');
+    if (!user) throw new Error('Trying to assign a task to an inexisting user');
     const taskID = this.#currentTaskID++;
     const newTask = new Task({ id: taskID, ...task });
     this.#tasks.push(newTask);
@@ -119,8 +126,12 @@ class FileBasedDB {
     return newUser;
   }
 
-  async updateTask(tid, dataToUpdate) {
+  async updateTask(tid, dataToUpdate = {}) {
     const taskToUpdate = await this.findTask(tid);
+    // eslint-disable-next-line no-prototype-builtins
+    if (dataToUpdate.hasOwnProperty('id')) delete dataToUpdate.id;
+    // eslint-disable-next-line no-prototype-builtins
+    if (dataToUpdate.hasOwnProperty('userID')) delete dataToUpdate.userID;
     const propertiesToUpdate = Object.keys(dataToUpdate);
     for (const property of propertiesToUpdate) {
       taskToUpdate[property] = dataToUpdate[property];
@@ -134,7 +145,6 @@ class FileBasedDB {
 
   async deleteTask(tid) {
     const taskToDeleteIndex = this.#tasks.findIndex(task => task.id === tid);
-    console.log(taskToDeleteIndex);
     if (taskToDeleteIndex === -1) return;
     const [deletedTask] = this.#tasks.splice(taskToDeleteIndex, 1);
     await this.#saveFile(this.#pathToTasksFile, this.#tasks);

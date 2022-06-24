@@ -1,8 +1,9 @@
 'use strict';
 
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-const generateAccessToken = (userId) => {
+const generateAccessToken = userId => {
   const payload = { userId };
   const accessTokenSecret = process.env.TOKEN_SECRET;
   const sessionDuration = process.env.SESSION_DURATION;
