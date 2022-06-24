@@ -4,40 +4,7 @@ import { globalActions } from 'features/global/globalSlice';
 import { formatDateToISO } from 'utils/fortmatDateToISO';
 
 const initialState = {
-  tasks: [
-    {
-      title: 'Task 1',
-      id: 1,
-      description: 'some stupid text',
-      isDone: true,
-      deadline: new Date().toString(),
-      doneDate: new Date().toString(),
-    },
-    {
-      title: 'Task 2',
-      id: 2,
-      description: 'Some stupid text',
-      isDone: false,
-      deadline: new Date().toString(),
-      doneDate: null,
-    },
-    {
-      title: 'Task 3',
-      id: 3,
-      description: 'some stupid text',
-      isDone: true,
-      deadline: new Date().toString(),
-      doneDate: new Date().toString(),
-    },
-    {
-      title: 'Task 4',
-      id: 4,
-      description: 'Some stupid text',
-      isDone: false,
-      deadline: new Date().toString(),
-      doneDate: null,
-    },
-  ],
+  tasks: [],
   taskToEdit: null,
 };
 
@@ -49,7 +16,10 @@ const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
-    addNewTask: (state, { payload }) => {
+    setTasks: (state, { payload }) => {
+      state.tasks = payload;
+    },
+    addTask: (state, { payload }) => {
       state.tasks.unshift(payload);
     },
     deleteTask: (state, { payload: id }) => {
@@ -72,9 +42,6 @@ const tasksSlice = createSlice({
     setTaskToEdit: (state, { payload: id }) => {
       const taskIndex = findTaskIndexById(state.tasks, id);
       state.taskToEdit = state.tasks[taskIndex];
-    },
-    removeAllTasks: (state) => {
-      state.tasks = [];
     },
   },
   extraReducers: (builder) => {

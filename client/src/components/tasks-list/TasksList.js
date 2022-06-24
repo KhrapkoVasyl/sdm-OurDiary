@@ -27,7 +27,7 @@ const TasksList = ({ tasks }) => {
                   description={task.description}
                   isDone={task.isDone}
                   deadline={task.deadline}
-                  doneDate={task.doneDate}
+                  doneDate={task.completionDate}
                 />
               );
             })}

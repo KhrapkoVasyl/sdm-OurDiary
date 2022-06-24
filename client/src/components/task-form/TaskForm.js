@@ -1,15 +1,16 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { TASK_FORM_MODES } from 'constants/popup-modes';
-import { selectTaskToEdit, useTasksActions } from 'features/tasks/tasksSlice';
+import { selectTaskToEdit } from 'features/tasks/tasksSlice';
 import { useGlobalActions } from 'features/global/globalSlice';
 import { formatDateToISO } from 'utils/fortmatDateToISO';
+import { addNewTask, updateTask } from 'features/tasks/tasks.thunk';
 
 const TaskForm = () => {
+  const dispatch = useDispatch();
   const taskFormMode = useSelector((state) => state.global.taskFormMode);
   const taskToEdit = useSelector(selectTaskToEdit);
-  const { addNewTask, updateTask } = useTasksActions();
   const { setIsPopupOpen } = useGlobalActions();
 
   const defaultValues = taskToEdit
@@ -30,28 +31,20 @@ const TaskForm = () => {
 
   const onSubmit = (data) => {
     if (taskFormMode === TASK_FORM_MODES.EDIT) {
-      const editedTask = {
-        ...taskToEdit,
-        deadline: new Date(data.deadline).toString(),
-        title: data.title,
-        description: data.description,
-      };
-
-      updateTask({ id: taskToEdit.id, editedTask });
-      setIsPopupOpen(false);
+      dispatch(updateTask({ id: taskToEdit.id, task: data })).then(() => {
+        setIsPopupOpen(false);
+      });
       return;
     }
 
     const task = {
       ...data,
-      deadline: data.deadline.toString(),
       isDone: false,
-      doneDate: null,
-      id: Math.random() + Date.now(),
     };
 
-    addNewTask(task);
-    setIsPopupOpen(false);
+    dispatch(addNewTask(task)).then(() => {
+      setIsPopupOpen(false);
+    });
   };
 
   return (
