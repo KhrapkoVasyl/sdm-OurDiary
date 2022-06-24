@@ -4,13 +4,36 @@ import { SignUpPage } from 'pages/sign-up-page';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ROUTES } from 'constants/routes';
+import { PrivateRoute } from 'components/routes/private-route';
+import { PublicRoute } from 'components/routes/public-route';
 
 const Router = () => {
   return (
     <Routes>
-      <Route path={ROUTES.MAIN} element={<Layout />} />
-      <Route path={ROUTES.SIGN_IN} element={<SignInPage />} />
-      <Route path={ROUTES.SIGN_UP} element={<SignUpPage />} />
+      <Route
+        path={ROUTES.MAIN}
+        element={
+          <PrivateRoute>
+            <Layout />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={ROUTES.SIGN_IN}
+        element={
+          <PublicRoute restricted={true}>
+            <SignInPage />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path={ROUTES.SIGN_UP}
+        element={
+          <PrivateRoute restricted={true}>
+            <SignUpPage />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 };

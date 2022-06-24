@@ -4,6 +4,7 @@ import { signIn } from './auth.thunk';
 const initialState = {
   token: null,
   error: null,
+  isAuth: false,
 };
 
 const authSlice = createSlice({
@@ -12,6 +13,7 @@ const authSlice = createSlice({
   reducers: {
     setToken: (state, { payload }) => {
       state.token = payload;
+      state.isAuth = true;
     },
   },
   extraReducers: (builder) => {
@@ -25,6 +27,7 @@ const authSlice = createSlice({
 });
 
 export const selectAuthError = (state) => state.auth.error;
+export const selectIsAuth = (state) => state.auth.isAuth;
 
 export const useAuthActions = () => {
   const globalActions = useActions(globalSlice.actions);
