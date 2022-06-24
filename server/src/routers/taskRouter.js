@@ -7,10 +7,13 @@ const taskController = require('../controllers/taskController');
 const authMiddleware = require("../middleware/authMiddleware");
 
 taskRouter
-  .post('/create', authMiddleware, taskController.createTask)
+  .post('/', authMiddleware, taskController.createTask)
+
+  .delete('/', authMiddleware, taskController.deleteTask)
+
   .patch('/update', authMiddleware, taskController.updateTask)
   .patch('/toggle', authMiddleware, taskController.toggleTask)
-  .delete('/delete', authMiddleware, taskController.deleteTask)
+  
   .get('/getall', authMiddleware, getAllUserTasks)
   .get('/getcompleted', authMiddleware, getAllCompletedTasks)
   .get('/getuncompleted', authMiddleware, getAllUncompletedTasks)

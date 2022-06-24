@@ -9,9 +9,7 @@ const getAllUncompletedTasks = async (userID) => {
   }
 
   const uncompletedTasks = await db.findAllTasks({ userID, isDone: false });
-  if (uncompletedTasks.length === 0) {
-    return [];
-  } else if (uncompletedTasks.length > 1) {
+  if (uncompletedTasks.length > 1) {
     uncompletedTasks.sort((a, b) => a['deadline'] > b['deadline'] ? 1 : -1);
   }
 

@@ -9,9 +9,7 @@ const getAllUserTasks = async (userID) => {
   }
 
   const tasks = await db.findAllTasks({ userID });
-  if (tasks.length === 0) {
-    return [];
-  } else if (tasks.length > 1) {
+  if (tasks.length > 1) {
     tasks.sort((a, b) => a['deadline'] > b['deadline'] ? 1 : -1);
   }
 
