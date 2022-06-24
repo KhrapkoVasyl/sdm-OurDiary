@@ -3,9 +3,11 @@
 const express = require('express');
 const app = express();
 const authRouter = require('./routers/authRouter');
-const { PREFIX } = require("./config")
+const taskRouter = require('./routers/taskRouter');
+const { PREFIX } = require("./config");
 
 app.use(express.json());
 app.use(PREFIX + '/auth', authRouter);
+app.use(PREFIX + '/task', taskRouter);
 
 module.exports = app;
