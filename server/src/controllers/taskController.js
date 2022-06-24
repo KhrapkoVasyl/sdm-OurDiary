@@ -2,11 +2,11 @@
 'use strict';
 
 const stringToBoolean = require('../utils/stringToBoolean');
+
 const createTaskService = require('../services/createTaskService');
 const updateTaskService = require('../services/updateTaskService');
 const deleteTaskService = require('../services/deleteTaskService');
 const getAllUserTasksService = require('../services/getAllUserTasksService');
-const getAllOverdueTasksService = require('../services/getAllOverdueTasksService');
 const toggleTaskService = require('../services/toggleTaskService');
 
 class TaskController {
@@ -59,24 +59,6 @@ class TaskController {
       res.status(200).json({
         status: 'success',
         data: deletedTask,
-      });
-    } catch (err) {
-      res.status(400).json({
-        status: 'failed',
-        message: err.message,
-      });
-    }
-  }
-
-  async getAllOverdueTasks(req, res) {
-    try {
-      const userID = req.userID;
-
-      const tasks = await getAllOverdueTasksService(userID);
-
-      res.status(201).json({
-        status: 'success',
-        data: tasks,
       });
     } catch (err) {
       res.status(400).json({
