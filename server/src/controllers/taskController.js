@@ -31,7 +31,7 @@ class TaskController {
   async updateTask(req, res) {
     try {
       const userID = req.userID;
-      const taskID = req.body.id;
+      const taskID = +req.params.id;
 
       delete req.body.id;
 
@@ -52,7 +52,7 @@ class TaskController {
   async deleteTask(req, res) {
     try {
       const userID = req.userID;
-      const taskID = req.body.id;
+      const taskID = +req.params.id;
 
       const deletedTask = await deleteTaskService(userID, taskID);
 
@@ -94,7 +94,7 @@ class TaskController {
   async toggleTask(req, res) {
     try {
       const userID = req.userID;
-      const taskID = req.body.id;
+      const taskID = +req.params.id;
 
       const updatedTask = await toggleTaskService(userID, taskID);
       res.status(200).json({

@@ -11,6 +11,7 @@
   "author": "Vasyl Khrapko (khrapko2002@gmail.com), Bogdan Zinovij (bogdanolexandrov@gmail.com)",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-validator": "^6.14.2",
