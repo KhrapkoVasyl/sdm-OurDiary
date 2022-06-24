@@ -1,20 +1,20 @@
 'use strict';
 
-const createTask = require('../services/createTask');
-const updateTask = require('../services/updateTask');
-const deleteTask = require('../services/deleteTask');
-const getAllCompletedTasks = require('../services/getAllCompletedTasks');
-const getAllUncompletedTasks = require('../services/getAllUncompletedTasks');
-const getAllUserTasks = require('../services/getAllUserTasks');
-const getAllOverdueTasks = require('../services/getAllOverdueTasks');
-const toggleTask = require("../services/toggleTask");
+const createTaskService = require('../services/createTaskService');
+const updateTaskService = require('../services/updateTaskService');
+const deleteTaskService = require('../services/deleteTaskService');
+const getAllCompletedTasksService = require('../services/getAllCompletedTasksService');
+const getAllUncompletedTasksService = require('../services/getAllUncompletedTasksService');
+const getAllUserTasksService = require('../services/getAllUserTasksService');
+const getAllOverdueTasksService = require('../services/getAllOverdueTasksService');
+const toggleTaskService = require("../services/toggleTaskService");
 
 class TaskController {
   async createTask(req, res) {
     try {
       const userID = req.userID;
 
-      const task = await createTask({userID, ...req.body });
+      const task = await createTaskService({userID, ...req.body });
 
       res.status(201).json({ 
         status: 'success', 
@@ -35,7 +35,7 @@ class TaskController {
 
       delete req.body.id;
 
-      const task = await updateTask(userID, taskID, req.body);
+      const task = await updateTaskService(userID, taskID, req.body);
 
       res.status(200).json({ 
         status: 'success', 
@@ -54,7 +54,7 @@ class TaskController {
       const userID = req.userID;
       const taskID = req.body.id;
 
-      const deletedTask = await deleteTask(userID, taskID);
+      const deletedTask = await deleteTaskService(userID, taskID);
 
       res.status(200).json({ 
         status: 'success', 
@@ -72,7 +72,7 @@ class TaskController {
     try {
       const userID = req.userID;
 
-      const tasks = await getAllCompletedTasks(userID);
+      const tasks = await getAllCompletedTasksService(userID);
 
       res.status(201).json({ 
         status: 'success', 
@@ -90,7 +90,7 @@ class TaskController {
     try {
       const userID = req.userID;
 
-      const tasks = await getAllOverdueTasks(userID);
+      const tasks = await getAllOverdueTasksService(userID);
 
       res.status(201).json({ 
         status: 'success', 
@@ -108,7 +108,7 @@ class TaskController {
     try {
       const userID = req.userID;
 
-      const tasks = await getAllUserTasks(userID);
+      const tasks = await getAllUserTasksService(userID);
 
       res.status(201).json({ 
         status: 'success', 
@@ -126,7 +126,7 @@ class TaskController {
     try {
       const userID = req.userID;
 
-      const tasks = await getAllUncompletedTasks(userID);
+      const tasks = await getAllUncompletedTasksService(userID);
 
       res.status(201).json({ 
         status: 'success', 
@@ -145,10 +145,10 @@ class TaskController {
       const userID = req.userID;
       const taskID = req.body.id;
 
-      const changedTask = await toggleTask(userID, taskID); 
+      const updatedTask = await toggleTaskService(userID, taskID); 
       res.status(200).json({ 
         status: 'success', 
-        data: changedTask
+        data: updatedTask
       });
     } catch (err) {
       res.status(400).json({ 
