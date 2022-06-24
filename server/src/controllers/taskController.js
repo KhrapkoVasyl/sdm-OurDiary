@@ -1,29 +1,29 @@
+/* eslint-disable max-len */
 'use strict';
 
+const stringToBoolean = require('../utils/stringToBoolean');
 const createTaskService = require('../services/createTaskService');
 const updateTaskService = require('../services/updateTaskService');
 const deleteTaskService = require('../services/deleteTaskService');
-const getAllCompletedTasksService = require('../services/getAllCompletedTasksService');
-const getAllUncompletedTasksService = require('../services/getAllUncompletedTasksService');
 const getAllUserTasksService = require('../services/getAllUserTasksService');
 const getAllOverdueTasksService = require('../services/getAllOverdueTasksService');
-const toggleTaskService = require("../services/toggleTaskService");
+const toggleTaskService = require('../services/toggleTaskService');
 
 class TaskController {
   async createTask(req, res) {
     try {
       const userID = req.userID;
 
-      const task = await createTaskService({userID, ...req.body });
+      const task = await createTaskService({ userID, ...req.body });
 
-      res.status(201).json({ 
-        status: 'success', 
-        data: task 
+      res.status(201).json({
+        status: 'success',
+        data: task,
       });
     } catch (err) {
-      res.status(400).json({ 
-        status: 'failed', 
-        message: err.message 
+      res.status(400).json({
+        status: 'failed',
+        message: err.message,
       });
     }
   }
@@ -37,14 +37,14 @@ class TaskController {
 
       const task = await updateTaskService(userID, taskID, req.body);
 
-      res.status(200).json({ 
-        status: 'success', 
-        data: task
+      res.status(200).json({
+        status: 'success',
+        data: task,
       });
     } catch (err) {
-      res.status(400).json({ 
-        status: 'failed', 
-        message: err.message 
+      res.status(400).json({
+        status: 'failed',
+        message: err.message,
       });
     }
   }
@@ -56,32 +56,14 @@ class TaskController {
 
       const deletedTask = await deleteTaskService(userID, taskID);
 
-      res.status(200).json({ 
-        status: 'success', 
-        data: deletedTask
+      res.status(200).json({
+        status: 'success',
+        data: deletedTask,
       });
     } catch (err) {
-      res.status(400).json({ 
-        status: 'failed', 
-        message: err.message  
-      });
-    }
-  }
-
-  async getAllCompletedTasks(req, res) {
-    try {
-      const userID = req.userID;
-
-      const tasks = await getAllCompletedTasksService(userID);
-
-      res.status(201).json({ 
-        status: 'success', 
-        data: tasks
-      });
-    } catch (err) {
-      res.status(400).json({ 
-        status: 'failed', 
-        message: err.message 
+      res.status(400).json({
+        status: 'failed',
+        message: err.message,
       });
     }
   }
@@ -92,14 +74,14 @@ class TaskController {
 
       const tasks = await getAllOverdueTasksService(userID);
 
-      res.status(201).json({ 
-        status: 'success', 
-        data: tasks
+      res.status(201).json({
+        status: 'success',
+        data: tasks,
       });
     } catch (err) {
-      res.status(400).json({ 
-        status: 'failed', 
-        message: err.message 
+      res.status(400).json({
+        status: 'failed',
+        message: err.message,
       });
     }
   }
@@ -108,34 +90,21 @@ class TaskController {
     try {
       const userID = req.userID;
 
-      const tasks = await getAllUserTasksService(userID);
+      let isDone = req.query.isDone;
+      isDone = stringToBoolean(isDone);
 
-      res.status(201).json({ 
-        status: 'success', 
-        data: tasks
+      let overdue = req.query.overdue;
+      overdue = stringToBoolean(overdue);
+      const tasks = await getAllUserTasksService(userID, isDone, overdue);
+
+      res.status(201).json({
+        status: 'success',
+        data: tasks,
       });
     } catch (err) {
-      res.status(400).json({ 
-        status: 'failed', 
-        message: err.message 
-      });
-    }
-  }
-
-  async getAllUncompletedTasks(req, res) {
-    try {
-      const userID = req.userID;
-
-      const tasks = await getAllUncompletedTasksService(userID);
-
-      res.status(201).json({ 
-        status: 'success', 
-        data: tasks
-      });
-    } catch (err) {
-      res.status(400).json({ 
-        status: 'failed', 
-        message: err.message 
+      res.status(400).json({
+        status: 'failed',
+        message: err.message,
       });
     }
   }
@@ -145,15 +114,15 @@ class TaskController {
       const userID = req.userID;
       const taskID = req.body.id;
 
-      const updatedTask = await toggleTaskService(userID, taskID); 
-      res.status(200).json({ 
-        status: 'success', 
-        data: updatedTask
+      const updatedTask = await toggleTaskService(userID, taskID);
+      res.status(200).json({
+        status: 'success',
+        data: updatedTask,
       });
     } catch (err) {
-      res.status(400).json({ 
-        status: 'failed', 
-        message: err.message 
+      res.status(400).json({
+        status: 'failed',
+        message: err.message,
       });
     }
   }

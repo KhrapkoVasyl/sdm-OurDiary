@@ -1,22 +1,18 @@
 'use strict';
 
 const Router = require('express');
-const { getAllUserTasks, getAllCompletedTasks, getAllOverdueTasks, getAllUncompletedTasks } = require('../controllers/taskController');
+const { getAllUserTasks } = require('../controllers/taskController');
 const taskRouter = new Router();
 const taskController = require('../controllers/taskController');
-const authMiddleware = require("../middleware/authMiddleware");
+const authMiddleware = require('../middleware/authMiddleware');
 
 taskRouter
+  .get('/', authMiddleware, getAllUserTasks)
   .post('/', authMiddleware, taskController.createTask)
 
-  .delete('/', authMiddleware, taskController.deleteTask)
+  .delete('/:id', authMiddleware, taskController.deleteTask)
 
-  .patch('/update', authMiddleware, taskController.updateTask)
-  .patch('/toggle', authMiddleware, taskController.toggleTask)
-  
-  .get('/getall', authMiddleware, getAllUserTasks)
-  .get('/getcompleted', authMiddleware, getAllCompletedTasks)
-  .get('/getuncompleted', authMiddleware, getAllUncompletedTasks)
-  .get('/getoverdue', authMiddleware, getAllOverdueTasks);
+  .patch('/:id', authMiddleware, taskController.updateTask)
+  .patch('/toggle/:id', authMiddleware, taskController.toggleTask);
 
 module.exports = taskRouter;
