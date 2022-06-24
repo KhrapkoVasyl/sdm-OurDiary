@@ -18,7 +18,7 @@ class TaskController {
 
       res.status(201).json({ 
         status: 'success', 
-        task 
+        data: task 
       });
     } catch (err) {
       res.status(400).json({ 
@@ -39,7 +39,7 @@ class TaskController {
 
       res.status(200).json({ 
         status: 'success', 
-        task
+        data: task
       });
     } catch (err) {
       res.status(400).json({ 
@@ -58,7 +58,7 @@ class TaskController {
 
       res.status(200).json({ 
         status: 'success', 
-        deletedTask
+        data: deletedTask
       });
     } catch (err) {
       res.status(400).json({ 
@@ -76,7 +76,7 @@ class TaskController {
 
       res.status(201).json({ 
         status: 'success', 
-        tasks
+        data: tasks
       });
     } catch (err) {
       res.status(400).json({ 
@@ -94,7 +94,7 @@ class TaskController {
 
       res.status(201).json({ 
         status: 'success', 
-        tasks
+        data: tasks
       });
     } catch (err) {
       res.status(400).json({ 
@@ -112,7 +112,7 @@ class TaskController {
 
       res.status(201).json({ 
         status: 'success', 
-        tasks
+        data: tasks
       });
     } catch (err) {
       res.status(400).json({ 
@@ -130,7 +130,7 @@ class TaskController {
 
       res.status(201).json({ 
         status: 'success', 
-        tasks
+        data: tasks
       });
     } catch (err) {
       res.status(400).json({ 
@@ -148,7 +148,7 @@ class TaskController {
       const changedTask = await toggleTask(userID, taskID); 
       res.status(200).json({ 
         status: 'success', 
-        changedTask
+        data: changedTask
       });
     } catch (err) {
       res.status(400).json({ 
