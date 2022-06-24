@@ -3,7 +3,7 @@
 const db = require('../db/db');
 
 const getAllUserTasks = async (userID, isDone, overdue) => {
-  const user = db.findUserById(userID);
+  const user = await db.findUserById(userID);
   if (!user) {
     throw new Error('User with this ID does not exists!');
   }
