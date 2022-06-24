@@ -24,6 +24,8 @@ const globalSlice = createSlice({
   },
 });
 
+export const selectIsLoading = (state) => state.global.isLoading;
+
 export const useGlobalActions = () => {
   const globalActions = useActions(globalSlice.actions);
   return globalActions;
