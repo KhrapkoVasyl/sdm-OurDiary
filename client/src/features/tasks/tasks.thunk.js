@@ -5,6 +5,7 @@ import { addNewTaskRequest } from 'api/tasks/addNewTask';
 import { updateTaskRequest } from 'api/tasks/updateTask';
 import { tasksActions } from './tasksSlice';
 import { toggleTaskRequest } from 'api/tasks/toggleTask';
+import { deleteTaskRequest } from 'api/tasks/deleteTask';
 
 const { setIsLoading } = globalActions;
 const { addTask, setTasks } = tasksActions;
@@ -57,7 +58,24 @@ export const toggleTask = createAsyncThunk(
 
       dispatch(setIsLoading(false));
     } catch (err) {
-      console.log(err);
+      dispatch(setIsLoading(false));
+      return rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
+export const deleteTask = createAsyncThunk(
+  'deleteTask',
+  async (id, thunkAPI) => {
+    const { dispatch, rejectWithValue } = thunkAPI;
+    try {
+      dispatch(setIsLoading(true));
+      const resp = await deleteTaskRequest(id);
+
+      dispatch(tasksActions.deleteTask(id));
+
+      dispatch(setIsLoading(false));
+    } catch (err) {
       dispatch(setIsLoading(false));
       return rejectWithValue(err.response.data.message);
     }
