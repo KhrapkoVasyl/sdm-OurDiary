@@ -14,7 +14,9 @@ const toggleTask = async (userID, taskID) => {
   }
   const isDone = task.isDone === true ? false : true;
 
-  const updatedTask = await db.updateTask(taskID, { isDone });
+  const completionDate = task.isDone === true ? new Date().toISOString() : undefined;
+
+  const updatedTask = await db.updateTask(taskID, { isDone, completionDate });
   if (!updatedTask) {
     throw new Error("Failed to toggle Task!")
   }
