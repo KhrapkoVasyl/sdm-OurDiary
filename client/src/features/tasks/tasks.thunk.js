@@ -7,6 +7,8 @@ import { tasksActions } from './tasksSlice';
 import { toggleTaskRequest } from 'api/tasks/toggleTask';
 import { deleteTaskRequest } from 'api/tasks/deleteTask';
 import { getCompletedTasksRequest } from 'api/tasks/getCompledTasks';
+import { getUncompletedTasksRequest } from 'api/tasks/getUncompletedTasks';
+import { getOverdueTasksRequest } from 'api/tasks/getOverdueTasks';
 
 const { setIsLoading } = globalActions;
 const { addTask, setTasks } = tasksActions;
@@ -111,7 +113,43 @@ export const getCompletedTasks = createAsyncThunk(
       const resp = await getCompletedTasksRequest();
       const respData = resp.data;
 
-      console.log(respData);
+      dispatch(setTasks(respData.data));
+
+      dispatch(setIsLoading(false));
+    } catch (err) {
+      dispatch(setIsLoading(false));
+      return rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
+export const getUncompletedTasks = createAsyncThunk(
+  'getUncompletedTasks',
+  async (_, thunkAPI) => {
+    const { dispatch, rejectWithValue } = thunkAPI;
+    try {
+      dispatch(setIsLoading(true));
+      const resp = await getUncompletedTasksRequest();
+      const respData = resp.data;
+
+      dispatch(setTasks(respData.data));
+
+      dispatch(setIsLoading(false));
+    } catch (err) {
+      dispatch(setIsLoading(false));
+      return rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
+export const getOverdueTasks = createAsyncThunk(
+  'getOverdueTasks',
+  async (_, thunkAPI) => {
+    const { dispatch, rejectWithValue } = thunkAPI;
+    try {
+      dispatch(setIsLoading(true));
+      const resp = await getOverdueTasksRequest();
+      const respData = resp.data;
 
       dispatch(setTasks(respData.data));
 

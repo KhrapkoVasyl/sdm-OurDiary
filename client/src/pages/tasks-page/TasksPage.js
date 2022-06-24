@@ -23,7 +23,7 @@ const TasksPage = ({ title, titleIconColor }) => {
       <S.PageHead>
         <S.Title iconColor={theme.colorPrimary}>
           <FaTasks />
-          All Tasks
+          Tasks
         </S.Title>
         <RemoveAllButton onClick={() => removeAllTasks()} />
       </S.PageHead>

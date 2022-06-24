@@ -9,7 +9,12 @@ import { useTheme } from 'styled-components';
 import { useGlobalActions } from 'features/global/globalSlice';
 import { TASK_FORM_MODES } from 'constants/popup-modes';
 import { useDispatch } from 'react-redux';
-import { getAllTasks, getCompletedTasks } from 'features/tasks/tasks.thunk';
+import {
+  getAllTasks,
+  getCompletedTasks,
+  getOverdueTasks,
+  getUncompletedTasks,
+} from 'features/tasks/tasks.thunk';
 
 const SideNav = () => {
   const dispatch = useDispatch();
@@ -40,14 +45,18 @@ const SideNav = () => {
         text: 'To Do',
         to: '/tasks',
         color: theme.colorWarning,
-        onClick: () => {},
+        onClick: () => {
+          dispatch(getUncompletedTasks());
+        },
       },
       {
         icon: <FaCalendarTimes />,
         text: 'Overdue',
         to: '/tasks',
         color: theme.colorError,
-        onClick: () => {},
+        onClick: () => {
+          dispatch(getOverdueTasks());
+        },
       },
     ],
     []
