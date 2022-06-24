@@ -74,6 +74,19 @@ class FileBasedDB {
     await fs.writeFile(path, JSON.stringify(fileData));
   }
 
+  async #syncDB() {
+    await this.#saveFile(this.#pathToTasksFile, this.#tasks);
+    await this.#saveFile(this.#pathToUsersFile, this.#users);
+  }
+
+  async clearDB() {
+    this.#tasks = [];
+    this.#users = [];
+    this.#currentTaskID = 0;
+    this.#currentUserID = 0;
+    await this.#syncDB();
+  }
+
   async findUserById(uid) {
     return this.#users.find(user => user.id === uid);
   }
@@ -97,8 +110,7 @@ class FileBasedDB {
 
   async insertTask(task) {
     const user = await this.findUserById(task.userID);
-    if (!user)
-      throw new Error('Trying to assign a record to an inexisting user');
+    if (!user) throw new Error('Trying to assign a task to an inexisting user');
     const taskID = this.#currentTaskID++;
     const newTask = new Task({ id: taskID, ...task });
     this.#tasks.push(newTask);
@@ -114,8 +126,12 @@ class FileBasedDB {
     return newUser;
   }
 
-  async updateTask(tid, dataToUpdate) {
+  async updateTask(tid, dataToUpdate = {}) {
     const taskToUpdate = await this.findTask(tid);
+    // eslint-disable-next-line no-prototype-builtins
+    if (dataToUpdate.hasOwnProperty('id')) delete dataToUpdate.id;
+    // eslint-disable-next-line no-prototype-builtins
+    if (dataToUpdate.hasOwnProperty('userID')) delete dataToUpdate.userID;
     const propertiesToUpdate = Object.keys(dataToUpdate);
     for (const property of propertiesToUpdate) {
       taskToUpdate[property] = dataToUpdate[property];
@@ -129,7 +145,6 @@ class FileBasedDB {
 
   async deleteTask(tid) {
     const taskToDeleteIndex = this.#tasks.findIndex(task => task.id === tid);
-    console.log(taskToDeleteIndex);
     if (taskToDeleteIndex === -1) return;
     const [deletedTask] = this.#tasks.splice(taskToDeleteIndex, 1);
     await this.#saveFile(this.#pathToTasksFile, this.#tasks);
