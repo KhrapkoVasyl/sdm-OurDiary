@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from 'constants/routes';
 import { useForm } from 'react-hook-form';
@@ -6,8 +6,10 @@ import { signIn } from 'features/auth/auth.thunk';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuthError } from 'features/auth/authSlice';
 import { selectIsLoading } from 'features/global/globalSlice';
+import { useAuthActions } from 'features/auth/authSlice';
 
 const SignInForm = () => {
+  const { resetError } = useAuthActions();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onSignUpClick = () => {
@@ -25,6 +27,10 @@ const SignInForm = () => {
   const onSubmit = (data) => {
     dispatch(signIn(data));
   };
+
+  useEffect(() => {
+    return () => resetError();
+  }, []);
 
   if (isLoading) {
     return <p>Loading...</p>;

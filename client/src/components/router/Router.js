@@ -29,9 +29,9 @@ const Router = () => {
       <Route
         path={ROUTES.SIGN_UP}
         element={
-          <PrivateRoute restricted={true}>
+          <PublicRoute restricted={true}>
             <SignUpPage />
-          </PrivateRoute>
+          </PublicRoute>
         }
       />
     </Routes>

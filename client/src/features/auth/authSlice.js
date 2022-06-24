@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { signIn } from './auth.thunk';
+import { signIn, signUp } from './auth.thunk';
+import { useActions } from 'hooks/useActions';
 
 const initialState = {
   token: null,
@@ -15,12 +16,21 @@ const authSlice = createSlice({
       state.token = payload;
       state.isAuth = true;
     },
+    resetError: (state) => {
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(signIn.pending, (state) => {
       state.error = null;
     });
     builder.addCase(signIn.rejected, (state, { payload }) => {
+      state.error = payload;
+    });
+    builder.addCase(signUp.pending, (state) => {
+      state.error = null;
+    });
+    builder.addCase(signUp.rejected, (state, { payload }) => {
       state.error = payload;
     });
   },
@@ -30,8 +40,8 @@ export const selectAuthError = (state) => state.auth.error;
 export const selectIsAuth = (state) => state.auth.isAuth;
 
 export const useAuthActions = () => {
-  const globalActions = useActions(globalSlice.actions);
-  return globalActions;
+  const authActions = useActions(authSlice.actions);
+  return authActions;
 };
 
 export const authActions = authSlice.actions;
