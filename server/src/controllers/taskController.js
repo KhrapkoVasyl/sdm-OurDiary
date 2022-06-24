@@ -33,6 +33,10 @@ class TaskController {
       const userID = req.userID;
       const taskID = +req.params.id;
 
+      if (isNaN(taskID)) {
+        throw new Error('Task ID should be a number!');
+      }
+
       delete req.body.id;
 
       const task = await updateTaskService(userID, taskID, req.body);
@@ -53,6 +57,10 @@ class TaskController {
     try {
       const userID = req.userID;
       const taskID = +req.params.id;
+      
+      if (isNaN(taskID)) {
+        throw new Error('Task ID should be a number!');
+      }
 
       const deletedTask = await deleteTaskService(userID, taskID);
 
@@ -95,6 +103,10 @@ class TaskController {
     try {
       const userID = req.userID;
       const taskID = +req.params.id;
+      
+      if (isNaN(taskID)) {
+        throw new Error('Task ID should be a number!');
+      }
 
       const updatedTask = await toggleTaskService(userID, taskID);
       res.status(200).json({
