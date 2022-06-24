@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const comparePasswordsService = async (login, password) => {
   const user = await db.findUserByName(login);
 
-  const bool = bcrypt.compareSync(password, user.password);
+  const bool = await bcrypt.compare(password, user.password);
 
   return bool;
 };

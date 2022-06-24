@@ -9,9 +9,10 @@ const createUserService = async (login, password) => {
     throw new Error('User with the same name is already exists!');
   }
 
-  const hashedPassword = bcrypt.hashSync(password, 7);
+  const salt = 7;
+  let hashPassword = await bcrypt.hash(password, salt);
 
-  const newUser = await db.insertUser({ name: login, password: hashedPassword });
+  const newUser = await db.insertUser({ name: login, password: hashPassword });
 
   if (!newUser) {
     throw new Error('Failed to create User!');
