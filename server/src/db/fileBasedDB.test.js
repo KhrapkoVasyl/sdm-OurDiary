@@ -6,7 +6,7 @@ const fs = require('fs').promises;
 const FileBasedDB = require('./fileBasedDB');
 
 describe('File Based Database Testing', () => {
-  const dirPath = path.join(__dirname, 'testDB');
+  const dirPath = '/home/runner/work/sdm-OurDiary/server/src/db/testDB';
   const fileUsersPath = path.join(dirPath, 'users.json');
   const fileTasksPath = path.join(dirPath, 'tasks.json');
   console.log('dirPath: ' + dirPath);
