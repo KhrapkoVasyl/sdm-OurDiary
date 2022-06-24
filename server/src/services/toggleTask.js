@@ -2,7 +2,7 @@
 
 const db = require('../db/db');
 
-const markTaskAsCompleted = async (userID, taskID) => {
+const toggleTask = async (userID, taskID) => {
   const task = await db.findTask(taskID);
   if (!task) {
     throw new Error("Task with this ID does not exists!")
@@ -12,13 +12,14 @@ const markTaskAsCompleted = async (userID, taskID) => {
     console.log(task.userID, userID)
     throw new Error("This task does not belongs to user or does not exists!")
   }
+  const isDone = task.isDone === true ? false : true;
 
-  const updatedTask = await db.updateTask(taskID, { isDone: true });
+  const updatedTask = await db.updateTask(taskID, { isDone });
   if (!updatedTask) {
-    throw new Error("Failed to mark task as completed!")
+    throw new Error("Failed to toggle Task!")
   }
 
   return updatedTask;
 };
 
-module.exports = markTaskAsCompleted;
+module.exports = toggleTask;

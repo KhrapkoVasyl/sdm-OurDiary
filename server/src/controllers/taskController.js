@@ -3,12 +3,11 @@
 const createTask = require('../services/createTask');
 const updateTask = require('../services/updateTask');
 const deleteTask = require('../services/deleteTask');
-const markTaskAsCompleted = require('../services/markTaskAsCompleted');
-const markTaskAsUncompleted = require('../services/markTaskAsUncompleted');
 const getAllCompletedTasks = require('../services/getAllCompletedTasks');
 const getAllUncompletedTasks = require('../services/getAllUncompletedTasks');
 const getAllUserTasks = require('../services/getAllUserTasks');
 const getAllOverdueTasks = require('../services/getAllOverdueTasks');
+const toggleTask = require("../services/toggleTask");
 
 class TaskController {
   async createTask(req, res) {
@@ -65,42 +64,6 @@ class TaskController {
       res.status(400).json({ 
         status: 'failed', 
         message: err.message  
-      });
-    }
-  }
-
-  async markTaskAsCompleted(req, res) {
-    try {
-      const userID = req.userID;
-      const taskID = req.body.id;
-
-      const changedTask = await markTaskAsCompleted(userID, taskID); 
-      res.status(200).json({ 
-        status: 'success', 
-        changedTask
-      });
-    } catch (err) {
-      res.status(400).json({ 
-        status: 'failed', 
-        message: err.message 
-      });
-    }
-  }
-
-  async markTaskAsUncompleted(req, res) {
-    try {
-      const userID = req.userID;
-      const taskID = req.body.id;
-
-      const changedTask = await markTaskAsUncompleted(userID, taskID); 
-      res.status(200).json({ 
-        status: 'success', 
-        changedTask
-      });
-    } catch (err) {
-      res.status(400).json({ 
-        status: 'failed', 
-        message: err.message 
       });
     }
   }
@@ -168,6 +131,24 @@ class TaskController {
       res.status(201).json({ 
         status: 'success', 
         tasks
+      });
+    } catch (err) {
+      res.status(400).json({ 
+        status: 'failed', 
+        message: err.message 
+      });
+    }
+  }
+
+  async toggleTask(req, res) {
+    try {
+      const userID = req.userID;
+      const taskID = req.body.id;
+
+      const changedTask = await toggleTask(userID, taskID); 
+      res.status(200).json({ 
+        status: 'success', 
+        changedTask
       });
     } catch (err) {
       res.status(400).json({ 

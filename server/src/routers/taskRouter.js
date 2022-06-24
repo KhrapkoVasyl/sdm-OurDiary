@@ -9,8 +9,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 taskRouter
   .post('/create', authMiddleware, taskController.createTask)
   .patch('/update', authMiddleware, taskController.updateTask)
-  .patch('/markcompleted', authMiddleware, taskController.markTaskAsCompleted)
-  .patch('/markuncompleted', authMiddleware, taskController.markTaskAsUncompleted)
+  .patch('/toggle', authMiddleware, taskController.toggleTask)
   .delete('/delete', authMiddleware, taskController.deleteTask)
   .get('/getall', authMiddleware, getAllUserTasks)
   .get('/getcompleted', authMiddleware, getAllCompletedTasks)
