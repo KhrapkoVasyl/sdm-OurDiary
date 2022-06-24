@@ -3,13 +3,20 @@ import { FaTasks } from 'react-icons/fa';
 import { useTheme } from 'styled-components';
 import { RemoveAllButton } from 'components/remove-all-button';
 import { TaskList } from 'components/tasks-list';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectTasks, useTasksActions } from 'features/tasks/tasksSlice';
+import { useEffect } from 'react';
+import { getAllTasks } from 'features/tasks/tasks.thunk';
 
 const TasksPage = ({ title, titleIconColor }) => {
   const tasks = useSelector(selectTasks);
   const { removeAllTasks } = useTasksActions();
   const theme = useTheme();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllTasks());
+  }, []);
 
   return (
     <S.Container>

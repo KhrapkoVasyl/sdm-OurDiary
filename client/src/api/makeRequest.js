@@ -11,8 +11,8 @@ export const makeRequest = ({
   const prefix = '/api/v1';
   const fetchURL = prefix + url;
 
-  if (headers && headers.authorization) {
-    headers.authorization = getToken();
+  if (headers && headers.accesstoken) {
+    headers.accesstoken = getToken();
   }
 
   return axios(fetchURL, { method, headers, data });
