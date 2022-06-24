@@ -4,11 +4,15 @@ import { useGlobalActions } from 'features/global/globalSlice';
 import { useTasksActions } from 'features/tasks/tasksSlice';
 import { FaTrashAlt, FaRegEdit } from 'react-icons/fa';
 import * as S from './Task.style';
+import { toggleTask } from 'features/tasks/tasks.thunk';
+import { useDispatch } from 'react-redux';
 
 const Task = ({ id, title, description, isDone, deadline, doneDate }) => {
   const { setTaskFormMode, setIsPopupOpen } = useGlobalActions();
-  const { toggleTask, deleteTask, setTaskToEdit } = useTasksActions();
+  const { deleteTask, setTaskToEdit } = useTasksActions();
+  const dispatch = useDispatch();
   const onEditClickHandler = () => {
+    if (isDone) return;
     setTaskFormMode(TASK_FORM_MODES.EDIT);
     setIsPopupOpen(true);
     setTaskToEdit(id);
@@ -16,7 +20,7 @@ const Task = ({ id, title, description, isDone, deadline, doneDate }) => {
 
   const onTaskToggleHandler = (e) => {
     if (isDone) return;
-    toggleTask({ id, isDone: e.target.value });
+    dispatch(toggleTask(id));
   };
 
   const onDeleteClickHandler = () => {

@@ -4,6 +4,7 @@ import { getAllTasksRequest } from 'api/tasks/getAllTasks';
 import { addNewTaskRequest } from 'api/tasks/addNewTask';
 import { updateTaskRequest } from 'api/tasks/updateTask';
 import { tasksActions } from './tasksSlice';
+import { toggleTaskRequest } from 'api/tasks/toggleTask';
 
 const { setIsLoading } = globalActions;
 const { addTask, setTasks } = tasksActions;
@@ -25,7 +26,7 @@ export const addNewTask = createAsyncThunk(
 );
 
 export const updateTask = createAsyncThunk(
-  'addNewTask',
+  'updateTask',
   async ({ id, task }, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI;
     try {
@@ -37,6 +38,26 @@ export const updateTask = createAsyncThunk(
 
       dispatch(setIsLoading(false));
     } catch (err) {
+      dispatch(setIsLoading(false));
+      return rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
+export const toggleTask = createAsyncThunk(
+  'toggleTask',
+  async (id, thunkAPI) => {
+    const { dispatch, rejectWithValue } = thunkAPI;
+    try {
+      dispatch(setIsLoading(true));
+      const resp = await toggleTaskRequest(id);
+      const updatedTask = resp.data.data;
+
+      dispatch(tasksActions.updateTask({ id, editedTask: updatedTask }));
+
+      dispatch(setIsLoading(false));
+    } catch (err) {
+      console.log(err);
       dispatch(setIsLoading(false));
       return rejectWithValue(err.response.data.message);
     }
