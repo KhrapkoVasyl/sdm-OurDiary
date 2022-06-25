@@ -1,3 +1,21 @@
+<p align="center">
+    <a href="https://github.com/KhrapkoVasyl/sdm-OurDiary/issues">
+        <img alt="GitHub issues" src="https://img.shields.io/github/issues/KhrapkoVasyl/sdm-OurDiary?style=for-the-badge"></a>
+    <a href="https://github.com/KhrapkoVasyl/sdm-OurDiary/network">
+        <img alt="GitHub forks" src="https://img.shields.io/github/forks/KhrapkoVasyl/sdm-OurDiary?style=for-the-badge">
+    </a>
+    <a href="https://github.com/KhrapkoVasyl/sdm-OurDiary/stargazers">
+        <img alt="GitHub stars" src="https://img.shields.io/github/stars/KhrapkoVasyl/sdm-OurDiary?style=for-the-badge">
+    </a>
+    <a href="https://github.com/KhrapkoVasyl/sdm-OurDiary/blob/master/LICENSE">
+        <img alt="GitHub license" src="https://img.shields.io/github/license/KhrapkoVasyl/sdm-OurDiary?style=for-the-badge">
+    </a>
+    <a href="https://github.com/KhrapkoVasyl/sdm-OurDiary/graphs/contributors">
+        <img alt="GitHub license" src="https://img.shields.io/github/contributors/KhrapkoVasyl/sdm-OurDiary.svg?style=for-the-badge">
+    </a>
+
+</p>
+
 # OurDiary 📚
 
 > Full-Stack Web Application For Tracking Tasks
