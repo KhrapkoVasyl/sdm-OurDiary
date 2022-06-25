@@ -45,11 +45,18 @@
    npm install
    npm start
    ```
-3. Install NPM packages and start the server:
+3. Install NPM packages for server:
 
    ```sh
-   cd server
+   cd ../server
    npm install
+   ```
+
+   Create the configuration file `.env` as shown in the [example](https://github.com/KhrapkoVasyl/sdm-OurDiary/blob/main/server/.env.example).
+
+   And start the server:
+
+   ```sh
    npm start
    ```
 
