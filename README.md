@@ -7,7 +7,7 @@
     <a href="https://github.com/KhrapkoVasyl/sdm-OurDiary/stargazers">
         <img alt="GitHub stars" src="https://img.shields.io/github/stars/KhrapkoVasyl/sdm-OurDiary?style=for-the-badge">
     </a>
-    <a href="https://github.com/KhrapkoVasyl/sdm-OurDiary/blob/master/LICENSE">
+    <a href="https://github.com/KhrapkoVasyl/sdm-OurDiary/blob/main/LICENSE">
         <img alt="GitHub license" src="https://img.shields.io/github/license/KhrapkoVasyl/sdm-OurDiary?style=for-the-badge">
     </a>
     <a href="https://github.com/KhrapkoVasyl/sdm-OurDiary/graphs/contributors">
