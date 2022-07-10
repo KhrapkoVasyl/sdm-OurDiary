@@ -15,5 +15,5 @@ export const makeRequest = ({
     headers.accesstoken = getToken();
   }
 
-  return axios(fetchURL, { method, headers, data });
+  return axios(fetchURL, { method, headers, data, params });
 };

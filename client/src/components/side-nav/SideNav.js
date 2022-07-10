@@ -8,55 +8,35 @@ import { useMemo } from 'react';
 import { useTheme } from 'styled-components';
 import { useGlobalActions } from 'features/global/globalSlice';
 import { TASK_FORM_MODES } from 'constants/popup-modes';
-import { useDispatch } from 'react-redux';
-import {
-  getAllTasks,
-  getCompletedTasks,
-  getOverdueTasks,
-  getUncompletedTasks,
-} from 'features/tasks/tasks.thunk';
 
 const SideNav = () => {
-  const dispatch = useDispatch();
   const { setIsPopupOpen, setTaskFormMode } = useGlobalActions();
   const theme = useTheme();
-  const navItemsContent = useMemo(
+  const navItemsProps = useMemo(
     () => [
       {
         icon: <FaTasks />,
         text: 'All Tasks',
         to: '/tasks',
         color: theme.colorPrimary,
-        onClick: () => {
-          dispatch(getAllTasks());
-        },
       },
       {
         icon: <IoMdDoneAll />,
         text: 'Completed',
-        to: '/tasks',
+        to: '/tasks?isDone=true',
         color: theme.colorSuccess,
-        onClick: () => {
-          dispatch(getCompletedTasks());
-        },
       },
       {
         icon: <MdOutlineSchedule />,
         text: 'To Do',
-        to: '/tasks',
+        to: '/tasks?isDone=false',
         color: theme.colorWarning,
-        onClick: () => {
-          dispatch(getUncompletedTasks());
-        },
       },
       {
         icon: <FaCalendarTimes />,
         text: 'Overdue',
-        to: '/tasks',
+        to: '/tasks?isDone=false&overdue=true',
         color: theme.colorError,
-        onClick: () => {
-          dispatch(getOverdueTasks());
-        },
       },
     ],
     []
@@ -71,14 +51,14 @@ const SideNav = () => {
     <S.Container>
       <AddTaskButton onClick={onAddTaskButtonClick} />
       <S.NavList>
-        {navItemsContent.map(({ text, icon, to, color, onClick }) => {
+        {navItemsProps.map(({ text, icon, to, color }) => {
           return (
             <SideNavItem
               key={text}
               text={text}
               icon={icon}
-              onClick={onClick}
               color={color}
+              to={to}
             />
           );
         })}
