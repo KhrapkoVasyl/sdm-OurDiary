@@ -15,7 +15,15 @@ export const NavItem = styled.li`
   cursor: pointer;
   transition: background-color 0.2s ease;
 
-  :hover {
+  &.active {
+    background-color: ${getThemeValue('colorLightGray')};
+
+    svg {
+      color: ${getThemeValue('colorTextSecondary')};
+    }
+  }
+
+  :hover:not(.active) {
     background-color: ${getThemeValue('colorLightGray')};
     svg {
       color: ${getThemeValue('colorTextSecondary')};

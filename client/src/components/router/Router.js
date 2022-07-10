@@ -1,7 +1,7 @@
+import React from 'react';
 import { Layout } from 'components/layout';
 import { SignInPage } from 'pages/sign-in-page';
 import { SignUpPage } from 'pages/sign-up-page';
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ROUTES } from 'constants/routes';
 import { PrivateRoute } from 'components/routes/private-route';
